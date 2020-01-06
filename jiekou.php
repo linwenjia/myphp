@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
-echo 99999999999999999999;
+echo 6666666666666;
 $servername = "localhostlocalhost";
 $username = "rootroot";
 $password = "123456123456";
@@ -139,5 +139,5 @@ if ($sl == 2) {
 	exit;
 }
 
-echo 88888888888888888888888888;
+echo 666666666666666666666666;
 $conn->close();
