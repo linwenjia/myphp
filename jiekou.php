@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
-
+echo 123123123;
 $servername = "localhostlocalhost";
 $username = "rootroot";
 $password = "123456123456";
@@ -249,4 +249,5 @@ if($sl==4){
 		echo 'fail:书籍名不能为空';
 	}
 }
+echo 456456456;
 $conn->close();
