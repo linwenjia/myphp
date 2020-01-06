@@ -1,10 +1,10 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
 
-$servername = "localhost";
-$username = "root";
-$password = "123456";
-$dbname = "www.xiaoshuo.com";
+$servername = "localhostlocalhost";
+$username = "rootroot";
+$password = "123456123456";
+$dbname = "www.xiaoshuo.comwww.xiaoshuo.com";
 // 创建连接
 $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn, "utf8");
@@ -67,7 +67,6 @@ $send=addslashes($_POST['send']);//打赏金额
 $status=isset($_POST['status']) ? addslashes($_POST['status']) : 1;//'状态:1连载 2完结' 
 $huoche_url=isset($_POST['huoche_url']) ? addslashes($_POST['huoche_url']) : 0;
 $huoche_id=isset($_POST['huoche_id']) ? intval($_POST['huoche_id']) : 0;//火车头本身自带ID 
-
 $reads_mh=mt_rand(30000, 7000000);// 漫画阅读数（3万-700万之间）
 $dz_mh=mt_rand(10000, 20000);// 漫画点赞数（1万-2万之间）
 $dzzj_mh=mt_rand(10000, 20000);// 章节点赞数（1万-2万之间）
@@ -87,55 +86,6 @@ if ($sl1==3) {
 		echo ' 更新成功';
 	}
 	return;
-}
-
-
-//添加漫画
-if($sl==1){
-	if($bookname!=""){
-		$stype="SELECT * FROM `vv_mh_list` where title='$bookname'";
-    	$result=$conn->query($stype);
-  	 	if ($result->num_rows>0) {
-	  		while ($row = mysqli_fetch_assoc($result)){
-	 			$mhid=$row['id'];
-     			$cid=$row['cid'];
-	 			$before=$jino-1;
-	   			$next=$jino+1;
-	 			$zjsql="INSERT INTO `vv_mh_episodes` (`mhid`, `title`, `ji_no`, `pics`, `likes`, `readnums`, `before`, `next`, `money`, `create_time`, `update_time`) VALUES
-				($mhid, '$mhtitle', $jino, '$mhbody', 50, 0, $before, $next, $jine,$time, $time);";
-       			$result=$conn->query($zjsql);
-       			$lastid=mysqli_insert_id($conn);
-	   			if($lastid>1){ 
-        			$upsql="UPDATE vv_mh_list SET episodes=$jino WHERE id=$mhid;";
-         			$conn->query($upsql);
-		   			echo '添加小说成功';
-		   			return;
-	   			}else{
-		 			echo 'fail:添加小说失败'; 
-     				return;		 
-	   			}
-			}
-			return;		
- 		} else {
-            $booksql="INSERT INTO `vv_mh_list` (`title`, `mhcate`, `send`, `cateids`, `author`, `summary`, `cover_pic`, `detail_pic`, `sort`, `status`, `free_type`, `episodes`, `pay_num`, `reader`, `likes`, `collect`, `is_new`, `is_recomm`, `create_time`, `update_time`, `readnum`, `chargenum`, `chargemoney`, `share_title`, `share_pic`, `share_desc`) VALUES
-            ('$bookname', '$tstype', $send, '$sstype', '$author', '$des', '$litpic', '$litpic', 12, 1, 2, 1, 10, $reads_mh, $dz_mh, $sc_mh, 1, 1, $time, $time, 1, 0, 0, '', '$litpic', '$des')";
-            $result=$conn->query($booksql);
-            $lasmhid=mysqli_insert_id($conn);
-            $before=$jino-1;
-            $next=$jino+1;
-            $zjsql="INSERT INTO `vv_mh_episodes` (`mhid`, `title`, `ji_no`, `pics`, `likes`, `readnums`, `before`, `next`, `money`, `create_time`, `update_time`) VALUES
-			($lasmhid, '$mhtitle', $jino, '$mhbody', $dzzj_mh, 0, $before, $next, $jine,$time, $time);";
-       		$result=$conn->query($zjsql);
-       		$lastid=mysqli_insert_id($conn);
-	   		if($lasmhid>1){
-		   		echo '添加小说成功';
-	   		}else{
-		 		echo 'fail:添加小说失败';  
-	   		}
-   		}
-	} else {
-		echo 'fail:书籍名不能为空';
-	}
 }
 
 //添加小说-------------------------------------------
