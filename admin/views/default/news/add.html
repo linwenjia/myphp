@@ -1,0 +1,473 @@
+<{include "public/header.html"}>
+<style>
+    .label{
+        font-size: 16px;
+    }
+</style>
+<link href="<{$res}>/bootstrap/css/plugins/chosen/chosen.css" rel="stylesheet">
+<script type="text/javascript" src="<{$res}>/bootstrap/js/config.js"></script>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/function.js"></script>
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/tpl/news_add.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <title>添加新闻资讯</title>
+    <style>
+        #search_logistics{
+            text-align: left;
+            position:relative;
+
+        }
+        .autocomplete{
+            border: 1px solid #9ACCFB;
+            background-color: white;
+            text-align: left;
+        }
+        .autocomplete li{
+            list-style-type: none;
+        }
+        .clickable {
+            cursor: default;
+        }
+        .highlight {
+            background-color: #9ACCFB;
+        }
+    </style>
+
+    <script>
+        function getContent(){
+            if(UE.getEditor("editor").queryCommandState('source')!=0)//判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
+                UE.getEditor("editor").execCommand('source'); //切换到【设计】视图
+        }
+        $(function(){
+           //默认选中的资讯类别
+        });
+
+        //给资讯标题一个失去焦点事件验证标题是否存在 start
+        /*$(document).ready(function(){ 
+            return false;
+            var blurid = $("#goods_name"); 
+            blurid.blur(function(){ 
+                var thisval = $(this).val(); 
+                //alert(thisval);
+                if (thisval=='' || thisval==' ') {
+                    alert('标题不能为空');
+                    return false;
+                }
+                $.ajax({
+                    url:"<{$url}>/add",
+                    type:"POST",
+                    data:{"sub_name":"sub_name","goods_name":thisval},
+                    async:true,
+                    success:function(msg){
+                        if(msg.code == 0){
+                            alert(msg.msg);
+                        }
+                    },
+                    error:function(){
+                        console.log("http error");
+                    }
+                });
+            }); 
+        }); */
+        //给资讯标题一个失去焦点事件验证标题是否存在 end
+
+    </script>
+<body class="gray-bg">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>添加企业资讯 <small>仅供企业内部人员使用</small></h5>
+                <button class="btn btn-info " onclick="window.location.href='<{$url}>/news_list';" type="button" style="float: right;position: relative;bottom: 10px;"><i class="fa fa-bars"></i> 列表</button>
+            </div>
+            <div class="ibox-content">
+                <form method="post" id="user_form" enctype="multipart/form-data" action="<{$url}>/add" target="_self" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯标题</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="goods_name" name="goods_name" placeholder="填写资讯标题" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯类别</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" name="goods_cls">
+                                <{foreach $cls_array as $key=>$val}>
+                                <{if $val.level == 1}>
+                                <option value="<{$val.news_cls_id}>"><{$val.news_cls_name}></option>
+                                <{elseif $val.level == 2}>
+                                <option value="<{$val.news_cls_id}>">--|--<{$val.news_cls_name}></option>
+                                <{else}>
+                                <option value="<{$val.news_cls_id}>">--|--|--<{$val.news_cls_name}></option>
+                                <{/if}>
+                                <{/foreach}>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯副标题</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="goods_pname" placeholder="填写资讯副标题" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯封面图</label>
+                        <div class="col-sm-4">
+                            <label>
+                                <input type="file" multiple="multiple" id="input_img" style="display: none;" name="file" value="" onchange="javascript:setImagePreview('input_img','preview','localImage');">
+                                <a style="text-align: center">
+                                    <div id="localImage">
+                                        <img id="preview" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; max-width: 200px; max-height: 200px;">
+                                    </div>
+                                    <h4>选择展示图</h4>
+                                    <div style="clear: both;"></div>
+                                </a>
+                            </label>
+                            <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 关于我们：1200x420; 核心业务：570x428; 服务案例：400x300; 合作伙伴：200x150; 其他请上传240x150尺寸图片</span>
+                        </div>
+                    </div>
+
+                    <!-- 图片的alt属性，seo推广用，使用前先在bro_news表增加字段news_imgalt varchar 长度50  start -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">封面图介绍</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="goods_imgalt" placeholder="封面图介绍" class="form-control">
+                        </div>
+                    </div> 
+                    <!-- 图片的alt属性，seo推广用，使用前先在bro_news表增加字段news_imgalt varchar 长度50  start -->
+                    
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group" style="display: none;" id="case">
+                        <label class="col-sm-2 control-label">案例背景图</label>
+                        <div class="col-sm-4">
+                            <label>
+                                <input type="file" multiple="multiple" id="input_img_1" style="display: none;" name="case_img" value="" onchange="javascript:setImagePreview('input_img_1','preview_1','localImage_1');">
+                                <a style="text-align: center">
+                                    <div id="localImage_1">
+                                        <img id="preview_1" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; max-width: 200px; max-height: 200px;">
+                                    </div>
+                                    <h4>选择展示图</h4>
+                                    <div style="clear: both;"></div>
+                                </a>
+                            </label>
+                            <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传相应尺寸的图片</span>
+                            <input type="text" name="case_url" placeholder="请填写案例链接" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯关键词</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="goods_key" placeholder="关键词" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-4">
+                            <input type="number" name="sort" placeholder="排序" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <!-- <div class="form-group">
+                        <label class="col-sm-2 control-label">医师专长</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="label" placeholder="医师专长" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div> -->
+
+                    <!-- <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯来源</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" name="goods_source">
+                                <option value="来自网络">来自网络</option>
+                                <option value="原生编写">原生编写</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div> -->
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否是产品</label>
+                        <div class="col-sm-8">
+                            <input onchange="pro_info(this);" type="checkbox" name="my-checkbox" checked>
+                        </div>
+                    </div>
+
+                    <div id="pro_info" style="display: none;">
+                        <label class="col-sm-2 control-label">轮播图</label>
+                        <div class="form-group col-sm-10" id="bannner">
+                            <{for $i=0 to 5}>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img<{$i}>" style="display: none;" name="banner<{$i}>" value="" onchange="javascript:setImagePreview('input_img<{$i}>','preview<{$i}>','localImage<{$i}>');">
+                                    <a style="text-align: center">
+                                        <div id="localImage<{$i}>">
+                                            <img id="preview<{$i}>" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传320*160尺寸的图片</span>
+                            </div>
+                            <{/for}>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">产品属性</label>
+                            <div class="col-sm-8">
+                                <input  name="label_list" class="form-control" type="text" readonly="true"  value="">
+                                <input  name="label_list_id" class="form-control" type="hidden" value="" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请点选下方的属性或者新增属性</span>
+                                <div id="label_list" class="col-sm-12">
+                                    <{foreach $list_attr as $val}>
+                                    <label class="btn btn-sm btn-primary" onclick="chose_label(this)"  is_choose="0" index="<{$val.id}>"><{$val.name}></label>   
+                                    <{/foreach}>                            
+                                    </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <input type="text" id="new_label" class="form-control" placeholder="新属性" />
+                                        <label onclick="add_label();" class="btn btn-success btn-sm">添 加</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div>
+                        <h3>资讯详情</h3>
+                        <script id="editor" name="content" type="text/plain" style="width:95%;height:500px;margin-left:3%;margin-right:2%"></script>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-2" style="text-align: center;" >
+                            <input type="hidden" name="default_cls" value="">
+                            <input type="hidden" name="sub" value="true">
+                            <input type="button" class="btn btn-success"  value="提交保存"></input>
+                            <button class="btn btn-primary" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<{$res}>/bootstrap/js/plugins/chosen/chosen.jquery.js"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<{$res}>/bootstrap/css/bootstrap-switch.css">
+<script type="text/javascript" src="<{$res}>/bootstrap/js/bootstrap-switch.js"></script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+    $(function(){
+        //滑动按钮展示
+        $("[name='my-checkbox']").bootstrapSwitch({
+            "state":false,
+            "offColor":"danger"
+        });
+        //默认当前已经被选中的标签变成红颜色
+        var default_label_id_list = "";
+        default_label_id_list = default_label_id_list.split("|");
+        // console.log(default_label_id_list);
+        $("#label_list").children("label").each(function(k,v){
+            var now_label_id = $(v).attr("index");
+            for(var i=0;i<default_label_id_list.length;i++){
+                if(now_label_id == default_label_id_list[i]){
+                    //改变样式
+                    $(v).attr("is_choose",1)
+                    $(v).removeClass("btn-primary");
+                    $(v).addClass("btn-danger");
+                }
+            }
+           // console.log(this);
+        });
+    })
+
+    //显示产品信息
+    function pro_info(e){
+        var is_wx = $(e).is(':checked');
+        if(is_wx){
+            $("#pro_info").css({"display":"block"});
+        }else{
+            $("#pro_info").css({"display":"none"});
+        }
+    }
+
+    //属性添加
+    function add_label(){
+        var label_name = $("#new_label").val();
+        console.log(label_name);
+        $.ajax({
+            url:"<{$url}>/attr_add",
+            type:"POST",
+            data:{"name":label_name},
+            async:false,
+            success:function(msg){
+                console.log(msg);
+                if(msg.code == 200){
+                    var label_html = '<label class="btn btn-sm btn-primary" onclick="chose_label(this)"  is_choose="0" index="'+msg.result+'">'+label_name+'</label> ';
+                    $('#label_list').append(label_html);
+                    $('#new_label').val('');
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    }
+
+    //属性选择
+    function chose_label(e){
+        var is_choose = $(e).attr("is_choose");
+        var label_name = $(e).text();
+        var label_id = $(e).attr("index");
+        var now_label_name = $("input[name='label_list']").val();
+        var now_label_id = $("input[name='label_list_id']").val();
+
+        if(is_choose >= 1){
+            //改变样式
+            $(e).attr("is_choose",0)
+            $(e).removeClass("btn-danger");
+            $(e).addClass("btn-primary");
+
+            //减少数据
+            var now_label_arr = now_label_name.split("|");
+            var now_label_id_arr = now_label_id.split("|");
+            var now_label_length = now_label_arr.length;
+
+            var label_position = position_of_array(label_id,now_label_id_arr);
+               // console.log(label_position);
+            now_label_arr.splice(label_position,1);
+            now_label_id_arr.splice(label_position,1);
+               // console.log(now_label_arr);
+            new_label_name = now_label_arr.join("|");
+            new_label_id = now_label_id_arr.join("|");
+               // console.log(now_label_name);
+            
+            //减少产品属性文本框
+            $('.pro_attr'+label_id).remove();
+        }else{
+        
+            var now_label_arr = now_label_name.split("|");
+            var now_label_id_arr = now_label_id.split("|");
+            var now_label_length = now_label_arr.length;
+            //添加数据
+            var new_label_name = now_label_name+"|"+label_name;
+            var new_label_id = now_label_id+"|"+label_id;
+               // console.log(new_label_name);
+               // console.log(new_label_id);
+            if(now_label_length>0){
+                   // console.log(now_label_length);
+                for(var j=0;j<now_label_id_arr.length;j++){
+                    if (label_id == now_label_id_arr[j]){
+                        return false;
+                    }
+                }
+            }
+            
+            //添加产品属性文本框
+            var html = '';
+            html += '<div class="form-group pro_attr'+label_id+'">';
+            html += '    <label class="col-sm-2 control-label">'+label_name+'</label>';
+            html += '        <div class="col-sm-4">';
+            html += '            <input type="text" name="label_desc[]" placeholder="'+label_name+'" class="form-control">';
+            html += '        </div>';
+            html += '    </div>';
+            
+            $('#pro_info').append(html);
+
+            //改变样式
+            $(e).attr("is_choose",1)
+            $(e).removeClass("btn-primary");
+            $(e).addClass("btn-danger");
+            new_label_name = wipe_str_out(new_label_name,"|","both");
+            new_label_id = wipe_str_out(new_label_id,"|","both");
+        }
+        // console.log(now_label_name);
+        // console.log(new_label_id);
+
+        $("input[name='label_list']").val(new_label_name);
+        $("input[name='label_list_id']").val(new_label_id);
+    }
+
+    //当分类选择案例时，显示案例的背景图
+    $('select[name="goods_cls"]').change(function(){
+        var cid = $(this).val();
+        $.ajax({
+            url:"<{$url}>/findPid",
+            type:"POST",
+            data:{"cid":cid},
+            async:false,
+            success:function(data){
+                console.log(data);
+                if(data.code == 200){
+                    if(data.info.news_cls_id == 666)
+                        $('#case').css('display','block');
+                    else
+                        $('#case').css('display','none');
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    });
+
+    var flag = false;
+    //提交保存
+    $('.btn-success').click(function(){
+        if(flag)
+            return false;
+        var data_form = new FormData(document.getElementById("user_form"));
+        var submit_url = $('#user_form').attr('action');
+        // console.log(data_form);return false;
+        $.ajax({
+            type:"POST", 
+            processData:false,
+            contentType:false,     
+            url:submit_url, 
+            data:data_form, 
+            success: function(data){
+                flag = false;
+                if(data){
+                    if(data.code == 200){
+                        alert(data.msg);
+                        window.location.href = data.url;    
+                    }else{
+                       alert(data.msg);
+                    }
+                }
+            },
+            error:function(e){
+                flag = false;
+                showerr("错误！！");
+                //window.clearInterval();
+            }
+        });   
+        return false; 
+    });
+</script>
+</body>
+
+</html>

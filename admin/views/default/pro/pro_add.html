@@ -1,0 +1,176 @@
+<{include "public/header.html"}>
+<style>
+    .label{
+        font-size: 16px;
+    }
+</style>
+<link href="<{$res}>/bootstrap/css/plugins/chosen/chosen.css" rel="stylesheet">
+<script type="text/javascript" src="<{$res}>/bootstrap/js/config.js"></script>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/function.js"></script>
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/tpl/news_add.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<{$res}>/bootstrap/js/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
+<html>
+
+
+<title>添加内部商品</title>
+<style>
+    #search_logistics{
+        text-align: left;
+        position:relative;
+
+    }
+    .autocomplete{
+        border: 1px solid #9ACCFB;
+        background-color: white;
+        text-align: left;
+    }
+    .autocomplete li{
+        list-style-type: none;
+    }
+    .clickable {
+        cursor: default;
+    }
+    .highlight {
+        background-color: #9ACCFB;
+    }
+</style>
+
+<script>
+    /* 表单提交 start */
+    function ajax_form(){
+
+        // 整理数据
+        var form = new FormData(document.getElementById("user_form"));
+//             var req = new XMLHttpRequest();
+//             req.open("post", "${pageContext.request.contextPath}/public/testupload", false);
+//             req.send(form);
+        console.log(form);
+        $.ajax({
+            url:"<{$url}>/test",
+            type:"post",
+            data:form,
+            processData:false,
+            contentType:false,
+            success:function(msg){
+                // window.clearInterval(timer);
+                // console.log("over..");
+                console.log(msg);
+                alert(JSON.stringify(msg));
+//                    window.location.href = './user_list.html';
+            },
+            error:function(e){
+                alert("错误！！");
+                window.clearInterval(timer);
+            }
+        });
+    }
+    /* 表单提交 end */
+
+</script>
+<body class="gray-bg">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>添加企业资讯 <small>仅供企业内部人员使用</small></h5>
+                <button class="btn btn-info " onclick="window.location.href='goods_list.html';" type="button" style="float: right;position: relative;bottom: 10px;"><i class="fa fa-bars"></i> 列表</button>
+            </div>
+            <div class="ibox-content">
+                <form method="get" id="user_form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯标题</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="good_name" placeholder="填写资讯标题" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资讯类别</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" name="type">
+                                <option value="1">企业新闻</option>
+                                <option value="2">商业资讯</option>
+                                <option value="3">7月宝典</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">价格</label>
+
+                        <div class="col-sm-2">
+                            <input type="text" name="price" placeholder="商品单价" class="form-control">
+                        </div>
+                        <label class="col-sm-1 control-label">个数</label>
+                        <div class="col-sm-2">
+                            <input type="text" name="num" placeholder="默认1" class="form-control">
+                        </div>
+                        <label class="col-sm-1 control-label">单位</label>
+                        <div class="col-sm-2">
+                            <input type="text" name="unit" placeholder="默认个" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">展示图</label>
+                        <div class="col-sm-4">
+                            <label>
+                                <input type="file" multiple="multiple" id="input_img" style="display: none;" name="img_show[]" value="" onchange="javascript:setImagePreview('input_img','preview','localImage');">
+                                <a style="text-align: center">
+                                    <div id="localImage">
+                                        <img id="preview" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                    </div>
+                                    <h4>选择展示图</h4>
+                                    <div style="clear: both;"></div>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">指定商铺制作</label>
+                        <div class="col-sm-2">
+                            <!--<input type="text" name="company" placeholder="指定生产商" class="form-control">-->
+                            <div id = "search_logistics">
+                                <label for="search-text"></label>
+                                <input class="w200" type="text" id="search-text" name="search-text" placeholder="请输入关键词" />
+                                <input type="hidden" id="submit" value="搜索"/>
+                                <input type="hidden" id="store_id" name="store_id" value=""/>
+                            </div>
+                        </div>
+                        <span style="font-size: 12px;" class="col-sm-3">如果指定则相应商铺会受到相应订单</span>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div>
+                        <h3>商品详情</h3>
+                        <script id="editor" name="content" type="text/plain" style="width:95%;height:500px;margin-left:3%;margin-right:2%"></script>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-2" style="text-align: center;" >
+                            <input type="hidden" name="sub" value="true">
+                            <a class="btn btn-danger"  onclick="ajax_form();">保存内容</a>
+                            <button class="btn btn-white" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<{$res}>/bootstrap/js/plugins/chosen/chosen.jquery.js"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
+</body>
+
+</html>

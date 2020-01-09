@@ -1,0 +1,436 @@
+<{include "public/header.html"}>
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Data Tables -->
+    <link href="<{$res}>/bootstrap/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <base target="_blank">
+    <script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+    <script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$res}>/bootstrap/js/plugins/jeditable/jquery.jeditable.js"></script>
+    <script src="<{$res}>/bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="<{$res}>/bootstrap/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="<{$res}>/bootstrap/js/content.min.js"></script>
+    <script src="<{$res}>/bootstrap/js/config.js"></script>
+    <script src="<{$res}>/bootstrap/js/tpl/user_list.js"></script>
+    <script>
+        var id_arr = [];
+        /* 查看资讯 start */
+        function show_news(e){
+            var table_data = $('.dataTables-example').DataTable();
+            var data = table_data.row($(e).parent().parent('tr')).data();
+            var news_id = data['news_id'];
+//            console.log(news_id);
+            window.open("<{$root}>/whshow?id="+news_id);
+        }
+        /* 查看资讯 end */
+        /* 修改资讯 start */
+        function mod_news(e){
+            var table_data = $('.dataTables-example').DataTable();
+            var data = table_data.row($(e).parent().parent('tr')).data();
+            var news_id = data['news_id'];
+//            console.log(news_id);
+            window.location.href = "<{$url}>/mod/news_id/"+news_id;
+        }
+        /* 修改资讯 end */
+
+        /* 删除 start */
+        function del_news(e){
+            var table_data = $('.dataTables-example').DataTable();
+            var data = table_data.row($(e).parent().parent('tr')).data();
+            var news_id = data['news_id'];
+//            console.log(news_id);
+            window.location.href = "<{$url}>/del/news_id/"+news_id;
+        }
+        /* 删除 end */
+
+        /* 选中标签 start */
+        function choose_tag(e){
+            // 1 没选中 2 选中
+//            console.log($(e).attr('state'));
+            var now_state = $(e).attr('state');
+            if(now_state == 1){
+                $(e).attr('state',2).removeClass("btn-success").addClass("btn-danger");
+            }else{
+                $(e).attr('state',1).removeClass("btn-danger").addClass("btn-success");
+            }
+        }
+        /* 选中标签 end */
+
+        /* 整理选中的数据 start */
+        function data_post(){
+//            console.log($("#select_body >select").find("option:selected").val());
+            //选中的类别ID
+            var cls_id = $("#select_body >select").find("option:selected").val();
+            //选中的 标签 数组
+            var choose_tag = [];
+            $(".tag_choose").each(function(){
+//                console.log($(this).attr("state"));
+                if($(this).attr("state") ==2){
+                    choose_tag.push($(this).text());
+                }
+            });
+//            console.log(choose_tag);
+            // 获取所有的选中的值
+
+
+            $.ajax({
+                url:"/admin.php/news/ajax_mod_news",
+                type:"POST",
+                data:{"cls_id":cls_id,"choose_tag":choose_tag,"id_arr":id_arr},
+                success:function(msg){
+//                    console.log(msg);
+                    alert(msg.msg);
+                },
+                error:function(){
+                    console.log('http error');
+                }
+            });
+
+        }
+        /* 整理选中的数据 end */
+
+        //将时间戳格式化 
+        function getMyDate(time){  
+            // console.log(time);
+            time = parseInt(time)*1000;
+            // console.log(time);
+            if(typeof(time)=="undefined"){
+                return "";
+            }
+            var oDate = new Date(time),  
+                oYear = oDate.getFullYear(),  
+                oMonth = oDate.getMonth()+1,  
+                oDay = oDate.getDate(),  
+                oHour = oDate.getHours(),  
+                oMin = oDate.getMinutes(),  
+                oSen = oDate.getSeconds(),  
+                oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间      
+            return oTime;  
+        };
+            
+        //补0操作,当时间数据小于10的时候，给该数据前面加一个0  
+        function getzf(num){  
+            if(parseInt(num) < 10){  
+                num = '0'+num;  
+            }  
+            return num;  
+        }
+        /* 输出选中的 id列表 start */
+        function get_checked(){
+
+            $.each($('input[name="news_id"]:checked'),function(){
+                id_arr.push($(this).val());
+            });
+//            console.log(id_arr);
+            if(id_arr.length > 0){
+                /* 获取当前的标签 和分类  start */
+                $.ajax({
+                    url:'/admin.php/news/get_tag',
+                    type:'GET',
+                    data:{},
+                    success:function(msg){
+//                        console.log(msg);
+                        if(msg.code == 200){
+                            // append
+                            $("#tag_list").empty();
+                            for(var i=0;i<msg.data.length;i++){
+                                $("#tag_list").append('<label state="1" onclick="choose_tag(this);" class="btn btn-sm btn-success pull-left tag_choose" style="margin: 5px;">'+msg.data[i]+'</label>');
+                            }
+
+                        }
+                    },
+                    error:function(){
+                        console.log('http error');
+                    }
+                });
+                /* 获取当前的标签 和分类  end */
+
+                /* 获取当前的所有分类 start */
+                $.ajax({
+                    url:'/admin.php/news/ajax_cls_list',
+                    type:'GET',
+                    data:{},
+                    success:function(msg){
+                        console.log(msg);
+                        if(msg.code == 200){
+                            // append
+                            $("#select_body").empty();
+                            $("#select_body").append(msg.data);
+                        }
+                    },
+                    error:function(){
+                        console.log('http error');
+                    }
+                });
+                /* 获取当前的所有分类 end */
+
+                /* 弹出模态框 start */
+                $("#myModal2").modal('show');
+                /* 弹出模态框 end */
+            }
+
+        }
+        /* 输出选中的 id列表 end */
+
+        /*批量删除数据 start*/
+        function del_piliang_news(){
+            $.each($('input[name="news_id"]:checked'),function(){
+                id_arr.push($(this).val());
+            });
+//            console.log(id_arr);
+            if(id_arr.length > 0){
+                var r=confirm("是否删除选中");
+                if (r==true){
+                    $.ajax({
+                        url:'<{$url}>/del_piliang_news',
+                        type:'POST',
+                        data:{"isdel":"del","id_arr":id_arr},
+                        success:function(msg){
+//                            console.log(msg);
+                            if(msg.code == 200){
+                                alert(msg.msg);
+                                window.location.reload();
+                            }else{
+                                alert(msg.msg);
+                                window.location.reload();
+                            }
+                        },
+                        error:function(){
+                            console.log('http error');
+                        }
+                    });
+                }
+            }
+        }
+        /*批量删除数据 end*/
+
+        /* 全部选中或全部不选中 start */
+        function select_all(){
+            var now_state = $("#select-all").is(':checked');
+//            console.log(now_state);
+            if(now_state){
+                $("input[name='news_id']").prop("checked", true);
+
+            }else{
+                $("input[name='news_id']").removeAttr("checked");
+            }
+
+        }
+        /* 全部选中或全部不选中 end */
+
+        $(function(){
+            $('.dataTables-example').DataTable(//创建一个Datatable
+                    {
+                        ajax : {//通过ajax访问后台获取数据
+                            "url": "<{$url}>/get_news_list",//后台地址
+                            "type":'GET',
+                            "data":{
+                                cls_id:'2'//可以添加额外参数
+                            },
+                            "dataSrc": function (json) {//获取数据之后处理函数，jason就是返回的数据
+                                var dataSet = new Array();
+                                dataSet=json.data;
+//                                console.log(dataSet);
+                                return dataSet;//再将数据返回给datatable控件使用
+                            }
+                        },
+                        serverSide: true,//如果是服务器方式，必须要设置为true
+                        processing: true,//设置为true,就会有表格加载时的提示
+                        columns : [
+                            {"data" : "null",render:function(data, type, row){
+                                return "<input type='checkbox' name='news_id' value='"+ row.news_id+"' />";
+                            }},
+                            { data: 'news_id' },
+                            { data: 'news_name' }, //名字
+                            { data: 'news_cls_name' },//类别名字
+                            { data: 'news_key' },//关键词
+                            { data: 'add_times',
+                                render:function(data,type,row){
+                                    return getMyDate(data);
+                                }
+                            },//添加时间
+                            { data: 'open_times' },//点击量
+                            { data: 'sort' },
+                            {data:"null","defaultContent":"<a onclick='mod_news(this)'><i class='fa fa-edit'></i>修改</a><a onclick='show_news(this)'><i class='fa fa-paper-plane-o'></i>查看</a><a style='margin-left: 3px;' class='pull-right' onclick='del_news(this)'><i class='fa fa-trash-o'>删除</i></a>",
+                                render:function(){}
+                            }
+                        ],
+                        columnDefs : [ {
+                            orderable:false,//禁用排序
+                            targets:[0,2,3,4,8]   //指定的列
+                            }
+                        ],
+                        "language": {//国际化
+                            "processing":"<p style=\"font-size: 20px;color: #F79709;\">正在玩命加载中。。。。请稍后！</p>",//这里设置就是在加载时给用户的提示
+                            "lengthMenu": "_MENU_ 条记录每页",
+                            "zeroRecords": "没有找到记录",
+                            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                            "infoEmpty": "无记录",
+                            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+                            "paginate": {
+                                "previous": "上一页",
+                                "next": "下一页"
+                            }
+                        },
+                        "dom": "<'row'<'col-xs-2'l><'#mytool.col-xs-4'><'col-xs-6'f>r>" +"t" +"<'row'<'col-xs-6'i><'col-xs-6'p>>",//给表格改样式
+                        initComplete : function() {//表格完成时运行函数
+                            // $("#mytool").append('<button type="button" class="btn btn-warning btn-sm" id="importfilebutton" onclick="jumpimportfilepage();">添加</button>');//这里在表格的上面加了一个添加标签$(column.header())
+                            //$("#mytool").append($('#cls_data').html());
+                            var api = this.api();
+                            api.columns().indexes().flatten().each( function ( i ) {
+                                if(i != 3)return;
+                                var column = api.column( i );
+                                var select = $('<select class="form-control"><option value="">资讯类别</option></select>')
+                                    .appendTo( $("#mytool") )
+                                    .on( 'change', function () {
+                                        column
+                                            .search($(this).val())
+                                            .draw();
+                                    } );
+                                // column.data().unique().sort().each( function ( d, j ) {
+                                //     select.append( '<option value="'+d+'">'+d+'</option>' )
+                                // } );
+                                select.append($('.cls_id').html());
+                            } );
+                        }
+                    });
+        });
+        function fnClickAddRow(){$("#editable").dataTable().fnAddData(["Custom row","New row","New row","New row","New row"])};
+    </script>
+    </head>
+
+    <body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+    <div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>基本 <small>分类，查找</small></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                <li><a href="table_data_tables.html#">选项1</a>
+                </li>
+                <li><a href="table_data_tables.html#">选项2</a>
+                </li>
+                </ul>
+                <a class="close-link">
+                <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" >
+            <div id="cls_data" style="display: none;">
+                <div class="form-group">
+                    资讯类别:
+                    <select class="form-control cls_id" name="cls_id">
+                        <{foreach $cls_array as $key=>$val}>
+                        <{if $val.level == 1}>
+                        <option value="<{$val.news_cls_id}>"><{$val.news_cls_name}></option>
+                        <{elseif $val.level == 2}>
+                        <option value="<{$val.news_cls_id}>">--|--<{$val.news_cls_name}></option>
+                        <{else}>
+                        <option value="<{$val.news_cls_id}>">--|--|--<{$val.news_cls_name}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+            </div>
+            
+            <table class="table table-striped table-bordered table-hover dataTables-example" id="tpl_data">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" name="select_all" onchange="select_all();" id="select-all"></th>
+                <th>文章ID</th>
+                <th class="col-lg-2">资讯名字</th>
+                <th>资讯类别</th>
+                <th>关键词</th>
+                <th>添加时间</th>
+                <th class="col-sm-1">点击量</th>
+                <th>排序</th>
+                <th>操作</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr class="gradeX">
+                <td>1001</td>
+                <td>jack</td>
+                <td>A级经理</td>
+                <td>顶级经理</td>
+                <td >广东惠州</td>
+                <td >997823131@qq.com</td>
+                <td>18825466506</td>
+                <td>997823131</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="9">
+                            <label class="btn btn-danger btn-sm" onclick="get_checked();">修改</label> 
+                            <label class="btn btn-danger btn-sm" onclick="del_piliang_news();">删除</label>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">批量修改</h4>
+                <small class="font-bold">修改内容的分类和标签</small>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="tag_body">
+                    <div id="select_body">
+                        <select class="form-control">
+                            <option value="dd">分类名字</option>
+                            <option value="dd">分类名字</option>
+                            <option value="dd">分类名字</option>
+                        </select>
+                    </div>
+                    <div id="tag_list">
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="data_post();" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

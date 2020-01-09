@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="<{$res}>/css/controller.css" />
+	<link rel="stylesheet" type="text/css" href="<{$res}>/css/common.css" />
+</head>
+<body>
+	<!-- 主要内容 -->
+	<div class="controller">
+		<div class="TOP">
+			<p>拖拽右侧的表单元素到中间区域，即可生成相应的HTML代码，表单代码，轻松搞定！</p>
+			<button id="Showbox">预览代码</button>
+			<button id="generate">生成代码</button>
+		</div>
+		<!-- 类别  -->
+		<div class="overflow">
+			<div class="cls_ul overflow fl">
+				<select id="model_data">
+					<{foreach $model_type as $key => $val}>
+					<option value="<{$key}>"><a href=""><{$val}></a></option>
+					<{/foreach}>
+				</select>
+				<select id="view_data">
+					<{foreach $view_data as $key => $val}>
+					<option value="<{$val.view_id}>"><a href=""><{$val.view_name}></a></option>
+					<{/foreach}>
+				</select>
+				<button id="load">导入</button>
+				<!-- 展示列表 -->
+				<{foreach $model_view_list as $key => $val}>
+				<ul class="list_ul clsUl <{if $key != 10}>txt_none<{/if}>" id="clsUl">
+					<{foreach $val as $k => $v}>
+					<li data_type="轮播" data_model_pic="<{$v.model_pic}>" data_model_id="<{$v.model_id}>" data_cls_id="分类ID" position="1" data_comment="注释0"  data_level="{index:0,txt:'一级'}"  data_output="输出变量0" data_output_type="{index:0,txt:'输出类型'}" data_news_id=""  data_onoff="0">
+						<img src="<{$v.model_pic}>" class="img0" />
+					</li>
+					<{/foreach}>
+				</ul>
+				<{/foreach}>
+				<!-- 展示列表end -->
+			</div>
+			<!-- 类别end -->
+			<!-- 展示 -->
+			<div class="body_txt fl" id="body_txt">
+			
+			</div>
+			<!-- 展示end -->
+			<!-- 数据控制 -->
+			<div class="data fr">
+				<h4>头部<button class="fr" id="dele_obj">删除对象</button></h4>
+				<div class="inp_txt overflow">
+					<span class="fl">注释：</span>
+					<input type="text" name="" class="fr" id="comment" />
+				</div>
+				<div class="inp_txt overflow">
+					<span class="fl">分类ID：</span>
+					<input type="text" name="" class="fr" id="ClsId" />
+				</div>
+				<div class="inp_txt overflow">
+					<span class="fl">文章条数：</span>
+					<input type="text" name="" class="fr" id="textnum" />
+				</div>
+				<div class="inp_txt overflow">
+					<span class="fl">选择数据：</span>
+					<select class="fr" id="select_ce">
+						<{foreach $func_data as $key => $val}>
+						<option value="<{$key}>"><{$val}></option>
+						<{/foreach}>
+					</select>
+				</div>
+				
+				<div class="level level2 fr txt_none" id="position">
+					<div class="position_s">
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">PC</span>
+						</p>
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">手机</span>
+						</p>
+					</div>
+				</div>
+				<div class="inp_txt overflow txt_none" id="data_cla_txt">
+					<span class="fl">统计数据：</span>
+					<input type="text" name="" class="fr" id="count_data" placeholder="格式：文字1,数量1|文字2,数量2"></textarea>
+				</div>
+				<div class="level level2 fr txt_none" id="level2">
+					<div class="choose">
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">推荐（可根据传递的cls_id）</span>
+						</p>
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">具体的某一篇文章</span>
+						</p>
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">具体的某几篇文章</span>
+						</p>
+						<p class="overflow">
+							<span class="ra_sele fl">
+								<span></span>
+							</span>
+							<span class="fl">根据传递的cls_id获取的谁</span>
+						</p>
+						<input type="text" name="" id="article_id" placeholder="请填写文字ID" />
+					</div>
+				</div>
+				<div class="inp_txt overflow txt_none" id="level_ul_pren">
+					<span class="fl">类别层级：</span>
+					<div class="level fr">
+						<ul class="overflow" id="level_ul">
+							<li><span class="active">一级</span></li>
+							<li><span>二级</span></li>
+							<li><span>三级</span></li>
+						</ul>
+						<div class="choose" id="level1_choose">
+							<p class="overflow">
+								<span class="ra_sele fl">
+									<span></span>
+								</span>
+								<span class="fl">输出类别</span>
+							</p>
+							<p class="overflow">
+								<span class="ra_sele fl">
+									<span></span>
+								</span>
+								<span class="fl">输出类别和文章</span>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="inp_txt overflow">
+					<span class="fl">输出变量：</span>
+					<input type="text" name="" class="fr" id="output_var" />
+				</div>
+				<button class="save_btn" id="save_btn">保存</button>
+			</div>
+			<!-- 数据控制end -->
+		</div>
+	</div>
+	<!-- 主要内容end -->
+	<!-- 预览 --> 
+	<div class="bullet_box txt_none" id="bullet_box">
+		<p><span class="fr" id="hide_box">关闭</span></p>
+		<div>
+			<textarea class="form-control" id="json-input" rows="15" >
+				{
+				  "id": 1001,
+				  "type": "donut",
+				  "name": "Cake",
+				  "description": "http://www.jq22.com",
+				  "price": 2.55,
+				  "available": {
+				    store: 42,
+				    warehouse: 600
+				  },
+				  "topping": [
+				    { "id": 5001, "type": "None" },
+				    { "id": 5002, "type": "Glazed" },
+				    { "id": 5005, "type": "Sugar" },
+				    { "id": 5003, "type": "Chocolate" },
+				    { "id": 5004, "type": "Maple" }
+				  ]
+				}					
+			</textarea>
+			<label class="checkbox-inline">
+	        <input type="checkbox" id="collapsed">
+	        收缩所有的节点 </label>
+		    <label class="checkbox-inline">
+		        <input type="checkbox" id="with-quotes">
+		        为Key添加双引号 </label>
+		    <div class="form-group" style="padding: 1em 0;">
+		        <button id="btn-json-viewer" class="btn btn-info" title="run jsonViewer()">转换Json数据</button>
+		    </div>
+		    <pre id="json-renderer"></pre>
+
+		</div>
+	</div>
+	<!-- 预览end -->
+	<!-- 弹框 -->
+	<div class="bomb txt_none" id="bomb">
+		<div>
+			<p>弹框</p>
+			<button id="bombhide">确定</button>
+		</div>
+	</div>
+	<!-- 弹框end -->
+	<script type="text/javascript">
+		var controller_id = '<{$smarty.get.controller_id}>';
+		console.log(controller_id);
+	</script>
+	<script type="text/javascript" src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<{$res}>/js/controller.js"></script>
+	<script type="text/javascript" src="<{$res}>/js/jquery.json-viewer.js"></script>
+</body>
+</html>

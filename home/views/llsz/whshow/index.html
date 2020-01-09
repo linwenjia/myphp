@@ -1,0 +1,76 @@
+	<link rel="stylesheet" href="<{$res}>/css/whshow.css" />
+	<body>
+		<!--头部-->
+		<{include "public/header.html"}>
+		<!--头部end-->
+		<!--新闻详情-->
+		<div class="news_show content clearfix">
+			<div class="left fl">
+				<div class="about_nav">
+					<p class="title"><{$json_data.cls.cls_name}></p>
+					<span class="eg">ABOUT US</span>
+					<ul class="news_nav_ul"> 
+						<{foreach $json_data.cls.data as $key => $val}>
+						<li class="<{if $json_data.obj.news_cls_id==$val.news_cls_id}>active<{/if}>">
+							<a href="<{if $val.url == ''}><{$url_cls}><{$val.news_cls_id}><{else}><{$val.url}><{/if}>"><{$val.news_cls_name}></a>
+						</li>
+						<{/foreach}>
+					</ul>
+				</div>
+				<div class="about_nav lianxi">
+					<p class="title">相关推荐</p>
+					<span class="eg">RECOMMEND</span>
+					<ul class="success_ul">
+						<{foreach $json_data.decomm as $key => $val}>
+						<li class="txt_ovflow"><a href="<{$url_show}><{$val.news_id}>" class="txt_ovflow"><{$val.news_name}></a></li>
+						<{/foreach}>
+					</ul>
+				</div>
+				<div class="about_nav lianxi">
+					<p class="title">联系我们</p>
+					<span class="eg">CONTACT</span>
+					<p class="p"><span>电话：</span><span><{$data_site.company_tel}></span></p>
+					<p class="p"><span>邮箱：</span><span><{$data_site.company_email}></span></p>
+					<div class="p"> <p>地址：</p> <p><{$data_site.company_address}></p> </div>
+				</div>
+			</div>
+			<div class="right fl">
+				<div class="head">
+					<p><span><a href="<{$default_column[0].url}>">首页 > </a><span><{$json_data.cls.cls_name}></span></span></p>
+				</div>
+				<div class="main">
+					<p><{$json_data.obj.news_name}></p>
+					<div class="time <{if $smarty.get.pid!=4 && $smarty.get.pid!=6}>txt_none<{/if}>">
+						<span>发布时间：</span>
+						<span class="line"><{$json_data.obj.add_times|date_format:"%Y-%m-%d"}></span>
+						<span class="open">浏览次数：</span>
+						<span><{$json_data.obj.open_times}></span>
+					</div>
+					<!--新闻内容-->
+					<div class="main_news">
+						<{$json_data.obj.news_body}>
+					</div>
+					<!--新闻内容end-->
+					<!--上下篇-->
+					<div class="main_nav clearfix <{if $smarty.get.pid!= 4 && $smarty.get.pid!=6}>txt_none<{/if}>">
+						<{if $json_data.obj.page.pre!=null}>
+						<div class="pre_page fl">
+							<a href="<{$url_show}><{$json_data.obj.page.pre.news_id}>">上一篇：<{$json_data.obj.page.pre.news_name}></a>
+						</div>
+						<{/if}>
+							<{if $json_data.obj.page.next!=null}>
+						<div class="next_page fr">
+							<a href="<{$url_show}><{$json_data.obj.page.next.news_id}>">下一篇：<{$json_data.obj.page.next.news_name}></a>
+						</div>
+						<{/if}>
+					</div>
+					<!--上下篇end-->
+				</div>
+			</div>
+		</div>
+		<!--新闻详情end-->
+		<!--底部-->
+		<{include "public/footer.html"}>
+		<!--底部end-->
+	</body>
+	<script src="<{$res}>/js/whshow.js" type="text/javascript" charset="utf-8"></script>

@@ -1,0 +1,232 @@
+<{include "public/header.html"}>
+<style>
+    .label{
+        font-size: 16px;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>资讯分类</h5>
+
+                    <div class="ibox-tools">
+                        <span  onclick="add_top_cls();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        新增顶级类别
+                        </span>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <p class="m-b-lg">
+                        每个列表可以自定义标准的CSS样式。每个单元响应所以你可以给它添加其他元素来改善功能列表。
+                    </p>
+
+                    <div class="dd" >
+                        <ol class="dd-list">
+                            <{foreach $data_news_cls as $key=>$val}>
+
+                            <li class="dd-item" data-id="1">
+
+                                <div class="dd-handle">
+                                    <span style="color: #c1c1c1">
+                                        <i class="fa fa-minus column_i<{$key}>"  onclick="column_i(this);" index="<{$key}>" value="1" style="margin-right: 3px;"></i>
+                                    </span>
+                                    <span class="label label-info"><i class="fa fa-map"></i></span> <{$val.news_cls_name}>
+                                    <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$val.news_cls_id}>" value="<{$val.sort}>">
+                                        <span lower_count="<{count($val.son_data)}>" onclick="del_cls('<{$val.news_cls_id}>',this);" class="label label-primary pull-right">
+                                        <i class="fa fa-trash-o "></i>
+                                        </span>
+                                        <span onclick="edit_cls('<{$val.news_cls_id}>','<{$val.news_cls_name}>');" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
+                                            <i class=" fa fa-pencil "></i>
+                                        </span>
+                                        <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$val.news_cls_id}>';" class="label label-success pull-right">
+                                            <i class="fa fa-plus "></i>
+                                        </span>
+                                </div>
+
+                                <ol class="dd-list<{$key}>">
+                                    <{foreach $val.son_data as $second_key=>$second_val}>
+                                    <li class="dd-item" data-id="2">
+                                        <div class="dd-handle">
+                                            <span class="label label-info"><i class="fa fa-map-signs"></i></span>
+                                            <{$second_val.news_cls_name}>
+                                            <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.news_cls_id}>" value="<{$second_val.sort}>">
+                                            <span onclick="del_cls('<{$second_val.news_cls_id}>');" class="label label-primary pull-right">
+                                        <i class="fa fa-trash-o "></i>
+                                    </span>
+                                    <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
+                                        <i class=" fa fa-pencil "></i>
+                                    </span>
+                                        </div>
+                                    </li>
+                                    <{/foreach}>
+
+                                </ol>
+                            </li>
+                            <{/foreach}>
+                        </ol>
+                    </div>
+                    <div class="dd" style="margin-top: 10px;">
+                        <span onclick="location.reload();" style="cursor:pointer;" class="label label-primary" >
+                        刷新排序
+                        </span>
+                        <span onclick="add_top_cls();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        新增顶级类别
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">修改资讯类别</h4>
+                    <small class="font-bold">
+                        你可以修改类别的名称
+                    </small>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="text" name="cls_name" value="">
+                        <input type="hidden" name="cls_id" value="">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="ajax_get()" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<{$res}>/bootstrap/js/jquery.min.js?v=2.1.4"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/messages_zh.min.js"></script>
+<script src="<{$res}>/bootstrap/js/demo/form-validate-demo.min.js"></script>
+
+<script>
+
+    /* 新增顶级类别 start */
+    function add_top_cls(){
+        window.location.href = '<{$url}>/cls_add';
+    }
+    /* 新增顶级类别 end */
+
+    /* 类别伸缩 start  */
+    function column_i(e){
+        var index = $(e).attr('index');
+        console.log(index);
+
+        var class_name = ".column_i"+index;
+        var dd_list = ".dd-list"+index;
+
+        var li_value = $(class_name).attr('value');
+        if(li_value == 1){
+            // 隐藏
+
+            $(class_name).removeClass("fa-minus");
+            $(class_name).addClass("fa-plus");
+
+            $(dd_list).css({"display":"none"});
+            $(class_name).attr('value',2);
+        }else{
+            // 展示
+
+            $(class_name).removeClass("fa-plus");
+            $(class_name).addClass("fa-minus");
+
+            $(dd_list).css({"display":"block"});
+            $(class_name).attr('value',1);
+
+        }
+
+    }
+    /* 类别伸缩 end  */
+
+    /* 删除类别 start */
+    // 如果是顶级类别必须先删除 下级类别
+    function del_cls(cls_id,e){
+        var lower_count = $(e).attr('lower_count');
+        if(parseInt(lower_count) > 0){
+            alert('请先删除下级分类');
+            return false;
+        }
+
+        if(confirm('确定要删除此分类吗？')){
+            console.log(cls_id);
+
+        }
+    }
+    /* 删除类别 end */
+
+    /* 修改类别 start */
+    function edit_cls(cls_id,cls_name){
+        console.log(cls_id);
+        $("input[name='cls_name']").val(cls_name);
+        $("input[name='cls_id']").val(cls_id);
+
+    }
+    /* 修改类别 end */
+
+    /* 提交 start */
+    function ajax_get(){
+        var cls_id = $("input[name='cls_id']").val();
+        var cls_name = $("input[name='cls_name']").val();
+        var json_data = {"cls_id":cls_id,"cls_name":cls_name};
+        $.ajax({
+            url:"<{$url}>/edit_cls",
+            type:"GET",
+            data:json_data,
+            success:function(msg){
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+                location.reload();
+                console.log(msg);
+            },
+            error: function () {
+                console.log('http error');
+            }
+        });
+    }
+    /* 提交 end */
+    $(function(){
+        /* 排序 start */
+        $("input[name='sort']").blur(function(){
+            console.log($(this).val());
+            console.log($(this).attr("index"));
+            var json_data = {"cls_id":$(this).attr("index"),"sort_id":$(this).val()};
+            $.ajax({
+                url:"<{$url}>/sort",
+                type:"GET",
+                data:json_data,
+                success:function(msg){
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+                    console.log(msg);
+                },
+                error: function () {
+                    console.log('http error');
+                }
+            });
+
+        });
+        /* 排序 end */
+
+    });
+</script>
+</body>
+
+</html>

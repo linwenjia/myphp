@@ -1,0 +1,855 @@
+<{include "public/header.html"}>
+<style>
+    .label{
+        font-size: 16px;
+    }
+</style>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/function.js"></script>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网站信息修改</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" enctype="multipart/form-data" method="post" target="_self" action="<{$url}>/mod_site_info">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业名称：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_name" class="form-control" value="<{$data_site.company_name}>" type="text">
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 这里写点公司的名字</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业介绍：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_desc" class="form-control" value="<{$data_site.company_desc}>" type="text" aria-required="true" aria-invalid="false" class="valid">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">公司传真：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_fax" class="form-control" value="<{$data_site.company_fax}>" type="text">
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">服务热线：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_tel" class="form-control" value="<{$data_site.company_tel}>" type="text">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">手机号1：</label>
+                            <div class="col-sm-8">
+                                <input  name="phone1" class="form-control" value="<{$data_site.phone1}>" type="text">
+                            </div>
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">手机号2：</label>
+                            <div class="col-sm-8">
+                                <input  name="phone2" class="form-control" value="<{$data_site.phone2}>" type="text">
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业地址：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_address" class="form-control" value="<{$data_site.company_address}>" type="text">
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">QQ：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_qq" value="<{$data_site.site_qq}>" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定企业QQ</span>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">电子邮箱：</label>
+                            <div class="col-sm-8">
+                                <input  name="company_email" value="<{$data_site.company_email}>" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定公司的电子邮箱</span>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">公司秘钥：</label>
+                            <div class="col-sm-8">
+                                <input  name="secret" value="<{$data_site.secret}>" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定公司秘钥</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">公司appid：</label>
+                            <div class="col-sm-8">
+                                <input  name="appid" value="<{$data_site.appid}>" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定公司appid</span>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">站点LOGO：</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img1" style="display: none;" name="site_logo" value="" onchange="javascript:setImagePreview('input_img1','preview1','localImage1');">
+                                    <a style="text-align: center">
+                                        <div id="localImage1">
+                                            <img id="preview1" src="<{if $data_site.site_logo !=''}> <{$public}>/uploads/home_adv/<{$data_site.site_logo}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; max-width: 200px; max-height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle" ></i> 像素85x85</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">公众号二维码：</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img2" style="display: none;" name="site_code" value="" onchange="javascript:setImagePreview('input_img2','preview2','localImage2');">
+                                    <a style="text-align: center">
+                                        <div id="localImage2">
+                                            <img id="preview2" src="<{if $data_site.site_code !=''}> <{$public}>/uploads/home_adv/<{$data_site.site_code}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; max-width: 200px; max-height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle" ></i> 像素100x100</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">首页广告：</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img3" style="display: none;" name="site_adv" value="" onchange="javascript:setImagePreview('input_img3','preview3','localImage3');">
+                                    <a style="text-align: center">
+                                        <div id="localImage3">
+                                            <img id="preview3" src="<{if $data_site.site_adv !=''}> <{$public}>/uploads/home_adv/<{$data_site.site_adv}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; max-width: 200px; max-height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle" ></i> 像素120x120</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div> -->
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否主动推送：</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox"  class="onoffswitch-checkbox"  id="is_push">
+                                        <label class="onoffswitch-label" for="is_push">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否自动推送：</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" checked class="onoffswitch-checkbox"  id="is_auto_push">
+                                        <label class="onoffswitch-label" for="is_auto_push">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">百度主动推送token：</label>
+                            <div class="col-sm-8">
+                                <input  name="baidu_token" type="text" class="form-control" value="<{$data_site.baidu_token}>" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 填写百度主动推送token</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">自动推送代码：</label>
+                            <div class="col-sm-8">
+                                <input  name="auto_push_code" type="text" class="form-control" value="<{$data_site.auto_push_code}>" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 填写相应的代码</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">CNZZ统计代码：</label>
+                            <div class="col-sm-8">
+                                <input  name="cnzz_code" type="text" class="form-control" value="<{$data_site.cnzz_code}>" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 填写相应的代码</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">CNZZ站点id：</label>
+                            <div class="col-sm-8">
+                                <input  name="siteid" type="text" class="form-control" value="<{$data_site.siteid}>" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 填写相应的站点id</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">网站备案号：</label>
+                            <div class="col-sm-8">
+                                <input  name="record_code" type="text" class="form-control" value="<{$data_site.record_code}>"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">网站标题：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_title" type="text" class="form-control" value="<{$data_site.site_title}>" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">网站默认关键词：</label>
+                            <div class="col-sm-8">
+                                <input  name="default_keywords" type="text" class="form-control" value="<{$data_site.default_keywords}>" >
+                                <span class="help-block m-b-none text-danger"><i class="fa fa-info-circle"></i> 请以《-》或《英文逗号》分隔</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">网站关键词描述：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_desc" type="text" class="form-control" value="<{$data_site.site_desc}>" >
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">首页数量统计：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_totalnum" type="text" class="form-control" placeholder="经典案例,刑事辩护,客户好评,累计服务,民事纠纷" value="<{$data_site.site_totalnum}>" >
+                                <span class="help-block m-b-none text-danger"><i class="fa fa-info-circle"></i> 请以《英文逗号》分隔，按顺序添加</span>
+                            </div>
+                        </div> -->
+                        <!-- <hr/>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">首页内容推荐：</label>
+                            <div class="col-sm-8">
+                                <input  name="label_list" class="form-control" type="text" readonly="true" disabled value="<{$data_site.home_10_recommend}>">
+                                <input  name="home_10_recommend" class="form-control" type="hidden" value="" >
+                                <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请点选下方的按钮来删除不要的,最好添加到10个</span>
+                                <div id="label_list" class="col-sm-12">
+                                    <{foreach $data_10_recommend as $key=>$val}>
+                                    <label class="btn btn-sm btn-primary" style="margin-left:3px;" onclick="del_label(this,'label_list','home_10_recommend')"  is_choose="0" index="<{$val}>"><{$val}></label>
+                                    <{/foreach}>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <input type="text" id="new_label" class="form-control" placeholder="内容ID" />
+                                        <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle"></i> 请在内容管理里边查找出想要添加的内容ID</span>
+                                        <label onclick="add_label('new_label','label_list','home_10_recommend');" class="btn btn-success btn-sm">添 加</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">首页热门搜索：</label>
+                            <div class="col-sm-8">
+                                <input  name="hot_keywords" class="form-control" type="text" readonly="true" disabled value="<{$data_site.home_hot_keywords}>">
+                                <input  name="home_hot_keywords" class="form-control" type="hidden" value="" >
+                                <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请点选下方的按钮来删除不要的,最好添加到3个</span>
+                                <div id="hot_keywords" class="col-sm-12">
+                                    <{foreach $home_hot_keywords as $key=>$val}>
+                                    <label class="btn btn-sm btn-primary" style="margin-left:3px;" onclick="del_label(this,'hot_keywords','home_hot_keywords')"  is_choose="0" index="<{$val}>"><{$val}></label>
+                                    <{/foreach}>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <input type="text" id="new_keyword" class="form-control" placeholder="关键字" />
+                                        <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle"></i> 请填写搜索关键字</span>
+                                        <label onclick="add_label('new_keyword','hot_keywords','home_hot_keywords');" class="btn btn-success btn-sm">添 加</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <input type="hidden" name="is_push" value="<{$data_site.is_push}>" />
+                                <input type="hidden" name="is_auto_push" value="<{$data_site.is_auto_push}>" />
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网站栏目修改</h5>
+                    <div class="ibox-tools">
+                        <span  onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        新增顶级栏目
+                        </span>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <p class="m-b-lg">
+                        每个列表可以自定义标准的CSS样式。每个单元响应所以你可以给它添加其他元素来改善功能列表。
+                    </p>
+
+                    <div class="dd" id="nestable2">
+                        <ol class="dd-list">
+                            <li class="dd-item" data-id="1">
+                                <div class="dd-handle">
+                                    <span style="color: #c1c1c1">
+                                    </span>
+                                    <span class="label label-info"><i class="fa fa-users"></i></span> 首页
+                                </div>
+                                <ol class="dd-list1">
+                                </ol>
+                            </li>
+
+                            <{foreach $data_news_cls as $key=>$val}>
+
+                            <li class="dd-item" data-id="1">
+
+                                <div class="dd-handle">
+                                    <{if count($val.son_data) > 0}>
+                                    <span style="color: #c1c1c1">
+                                        <i class="fa fa-minus column_i<{$key}>"  onclick="column_i(this);" index="<{$key}>" value="1" style="margin-right: 3px;"></i>
+                                    </span>
+                                    <{/if}>
+                                    <span class="label label-info"><i class="fa fa-map"></i></span> <{$val.cls_name}>
+                                    <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$val.id}>" value="<{$val.sort}>">
+
+                                        <span lower_count="<{count($val.son_data)}>" onclick="del_column('<{$val.id}>');" class="label label-primary pull-right">
+                                        <i class="fa fa-trash-o "></i>
+                                        </span>
+
+                                        <span onclick="edit_column('<{$val.id}>','<{$val.cls_name}>','<{$val.url}>');" data-toggle="modal" data-target="#myModal3" class="label label-danger pull-right">
+                                            <i class=" fa fa-pencil "></i>
+                                        </span>
+                                        <span onclick="add_colum('<{$val.id}>','<{$val.cls_id}>','<{$val.type}>');" class="label label-success pull-right" data-toggle="modal" data-target="#myModal2">
+                                            <i class="fa fa-plus "></i>
+                                        </span>
+                                </div>
+                                <ol class="dd-list<{$key}>">
+                                    <{foreach $val.son_data as $second_key=>$second_val}>
+                                    <li class="dd-item" data-id="2">
+                                        <div class="dd-handle">
+                                            <span class="label label-info"><i class="fa fa-map-signs"></i></span>
+                                            <{$second_val.cls_name}>
+                                            <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.id}>" value="<{$second_val.sort}>">
+
+                                            <span onclick="del_column('<{$second_val.id}>');" class="label label-primary pull-right">
+                                            <i class="fa fa-trash-o "></i>
+                                            </span>
+                                            <span onclick="edit_column('<{$second_val.id}>','<{$second_val.cls_name}>','<{$second_val.url}>');" data-toggle="modal" data-target="#myModal3" class="label label-danger pull-right">
+                                            <i class=" fa fa-pencil "></i>
+                                            </span>
+
+                                        </div>
+                                    </li>
+                                    <{/foreach}>
+                                </ol>
+                            </li>
+                            <{/foreach}>
+
+                        </ol>
+                    </div>
+                </div>
+                <div class="dd" style="margin-top: 10px;">
+                        <span onclick="location.reload();" style="cursor:pointer;" class="label label-primary" >
+                        刷新排序
+                        </span>
+                        <span onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" data-toggle="modal" data-target="#myModal2">
+                        新增顶级类别
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增首页栏目</h4>
+                    <small class="font-bold">
+                        需要从当前的所有栏目中选择
+                    </small>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择栏目</label>
+                            <div class="col-sm-4">
+                                <select name="column_select" class="form-control">
+                                    <option value="1" type_name="news">暂无栏目可选</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目排序</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="column_sort"  value="" class="form-control" placeholder="请填写整数数字">
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 数字越大越靠后</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="ajax_get()" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">首页栏目修改</h4>
+                    <small class="font-bold">
+                        可以修改名字和链接
+                    </small>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目名字</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="column_name"  value="" class="form-control" placeholder="字数不能太多">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目链接</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="column_url"  value="" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 默认对应自己的分类</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="column_id" value="">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="mod_column_post()" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="<{$res}>/bootstrap/js/jquery.min.js?v=2.1.4"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/messages_zh.min.js"></script>
+<script src="<{$res}>/bootstrap/js/demo/form-validate-demo.min.js"></script>
+
+<script>
+
+
+    /* 修改栏目 start */
+    function edit_column(column_id,column_name,url){
+        $("input[name='column_name']").val(column_name);
+        $("input[name='column_url']").val(url);
+        $("input[name='column_id']").val(column_id);
+
+    }
+    /* 修改栏目 end */
+    /* 修改 栏目提交方法 start */
+    function mod_column_post(){
+        var column_id = $("input[name='column_id']").val();
+        var column_url = $("input[name='column_url']").val();
+        var column_name= $("input[name='column_name']").val();
+        var json_data = {"column_id":column_id,"column_url":column_url,"column_name":column_name};
+        console.log(json_data);
+
+        $.ajax({
+            url:"<{$url}>/mod_column_url",
+            type:"POST",
+            data:json_data,
+            success:function(msg){
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+                console.log(msg);
+                if(msg.code == 200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+                location.reload();
+
+//                console.log(msg);
+            },
+            error: function () {
+                console.log('http error');
+            }
+        });
+    }
+    /* 修改 栏目提交方法 end */
+    /* 提交 start */
+    function ajax_get(){
+        var cls_id = $("select[name='column_select']").find("option:selected").val(); // 类别ID
+        var cls_type = $("select[name='column_select']").find("option:selected").attr('type_id'); // 类别ID
+        var cls_type_name = $("select[name='column_select']").find("option:selected").attr('type_name'); // 类别ID
+        var column_sort = $("input[name='column_sort']").val(); //栏目 排序
+        var level = $("select[name='column_select']").find("option:selected").attr('level');//分类层级
+        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort,"level":level};
+        console.log(json_data);
+//        return false;
+        $.ajax({
+            url:"<{$url}>/column_add",
+            type:"POST",
+            data:json_data,
+            success:function(msg){
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+//                console.log(msg);
+                if(msg.code == 200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+                location.reload();
+
+//                console.log(msg);
+            },
+            error: function () {
+                console.log('http error');
+            }
+        });
+    }
+    /* 提交 end */
+
+    function add_top_colum(){
+        // 展示添加栏目的框框 // 最多添加 7个栏目
+        console.log('添加新的栏目');
+        /* 获取所有没有被放在首页的栏目 start */
+        $.ajax({
+            url:"<{$url}>/get_all_column",
+            type:"GET",
+            data:{},
+            success:function(msg){
+                console.log(msg);
+                if(msg.length > 0){
+                    $("select[name='column_select']").children().remove();
+                    for(var i=0;i<msg.length;i++){
+                        if(msg[i].type == 1){
+                            var type_name = 'news';
+                        }else{
+                            var type_name = 'pro';
+                        }
+                        if(msg[i].level == 2){
+                            var level_str = "--|--";
+                        }else{
+                            var level_str = '';
+                        }
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="1">'+level_str+msg[i].news_cls_name+'</option>');
+                    }
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+        /* 获取所有没有被放在首页的栏目 end */
+    }
+
+    /*新增栏目 start*/
+    function add_colum(colum_id,cls_id,type){
+        //清空之前的数据
+        $("select[name='column_select']").children().remove();
+        $("select[name='column_select']").append('<option value="1" type_name="news">暂无栏目可选</option>');
+        // 展示添加栏目的框框 // 最多添加 7个栏目
+        console.log('添加新的栏目');
+        /* 获取所有没有被放在首页的子栏目 start */
+        $.ajax({
+            url:"<{$url}>/get_child_column",
+            type:"POST",
+            data:{colum_id:colum_id,cls_id:cls_id,type:type},
+            dataType:'json',
+            success:function(msg){
+                console.log(msg,msg.length);
+                if(msg.length > 0){
+                    $("select[name='column_select']").children().remove();
+                    for(var i=0;i<msg.length;i++){
+                        if(msg[i].type == 1){
+                            var type_name = 'news';
+                        }else{
+                            var type_name = 'pro';
+                        }
+                        if(msg[i].level == 2){
+                            var level_str = "--|--";
+                        }else{
+                            var level_str = '';
+                        }
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="2">'+level_str+msg[i].news_cls_name+'</option>');
+                    }
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+        /* 获取所有没有被放在首页的栏目 end */
+    }
+    /*新增栏目 end*/
+
+    /* 类别伸缩 start  */
+    function column_i(e){
+        var index = $(e).attr('index');
+        console.log(index);
+
+        var class_name = ".column_i"+index;
+        var dd_list = ".dd-list"+index;
+
+        var li_value = $(class_name).attr('value');
+        if(li_value == 1){
+            // 隐藏
+
+            $(class_name).removeClass("fa-minus");
+            $(class_name).addClass("fa-plus");
+
+            $(dd_list).css({"display":"none"});
+            $(class_name).attr('value',2);
+        }else{
+            // 展示
+
+            $(class_name).removeClass("fa-plus");
+            $(class_name).addClass("fa-minus");
+
+            $(dd_list).css({"display":"block"});
+            $(class_name).attr('value',1);
+
+        }
+
+    }
+    /* 删除栏目 start */
+    function del_column(column_id){
+        console.log(column_id);
+        $.ajax({
+           url:"<{$url}>/del_column/column_id/"+column_id,
+            type:"GET",
+            data:{},
+            success:function(msg){
+                console.log(msg);
+                if(msg.code==200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+                window.location.reload();
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    }
+    /* 删除栏目 end */
+    /* 类别伸缩 end  */
+    $(function(){
+
+        /* 排序 start */
+        $("input[name='sort']").blur(function(){
+            console.log($(this).val());
+            console.log($(this).attr("index"));
+            var json_data = {"cls_id":$(this).attr("index"),"sort_id":$(this).val()};
+            $.ajax({
+                url:"<{$url}>/sort",
+                type:"GET",
+                data:json_data,
+                success:function(msg){
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+                    console.log(msg);
+                },
+                error: function () {
+                    console.log('http error');
+                }
+            });
+
+        });
+        /* 排序 end */
+
+        /* 选择值初始化 start */
+        var is_push = $("input[name='is_push']").val();
+        var is_auto_push = $("input[name='is_auto_push']").val();
+        if(is_push == 'on'){
+            $("#is_push").attr("checked",true);
+        }else{
+            $("#is_push").attr("checked",false);
+        }
+        if(is_auto_push == 'on'){
+            $("#is_auto_push").attr("checked",true);
+        }else{
+            $("#is_auto_push").attr("checked",false);
+        }
+        /* 选择值初始化 end */
+
+        /* 推送是否关闭 start */
+        $("#is_push").click(function(e){
+            var is_push = $("#is_push").is(":checked");
+            console.log(is_push);
+            if(is_push){
+                $("input[name='is_push']").val('on');
+            }else{
+                $("input[name='is_push']").val('off');
+            }
+        });
+
+        $("#is_auto_push").click(function(e){
+            var is_auto_push = $("#is_auto_push").is(":checked");
+            console.log(is_auto_push);
+            if(is_auto_push){
+                $("input[name='is_auto_push']").val('on');
+            }else{
+                $("input[name='is_auto_push']").val('off');
+            }
+        });
+        /* 推送是否关闭 end */
+
+    });
+
+    //添加标签
+    function add_label(id_nam,class_name1,class_name2){
+        var new_label = $("#"+id_nam).val();
+        var now_label_list = $("input[name='"+class_name1+"']").val();
+        console.log($("#"+id_nam));
+        console.log($("input[name='"+class_name1+"']"));
+        console.log(id_nam,class_name1,class_name2);
+        console.log(now_label_list);
+        var now_label_array = now_label_list.split("|");
+        console.log(now_label_array);
+
+        //无内容则退出
+        if(new_label == '')
+            return false;
+
+        //如果在原来的数组里边则退出脚本
+        console.log(now_label_array.length);
+        if(now_label_array.length>0){
+           // console.log(now_label_length);
+            for(var j=0;j<now_label_array.length;j++){
+                if (new_label == now_label_array[j]){
+                    return false;
+                }
+            }
+        }
+        var new_value = wipe_str_out(now_label_list+"|"+new_label,"|","both");
+
+        $("input[name='"+class_name1+"']").val(new_value);//加入input
+        $("input[name='"+class_name2+"']").val(new_value);//加入input
+        var name1 = '\''+class_name1+'\'';
+        var name2 = '\''+class_name2+'\'';
+        $("#"+class_name1).append('<label class="btn btn-sm btn-primary" style="margin-left:3px;" onclick="del_label(this,'+name1+','+name2+')"  is_choose="0" index="'+new_label+'">'+new_label+'</label>');
+        //清理现有的值
+        $("#"+id_nam).val('');
+    }
+
+    //删除 label
+    function del_label(e,class_name1,class_name2){
+        var choose_label = $(e).attr("index");
+        var now_label_list = $("input[name='"+class_name1+"']").val();
+        console.log(choose_label);
+        console.log($("input[name='"+class_name1+"']"));
+        var now_label_array = now_label_list.split("|");
+        var now_label_length = now_label_array.length;
+        var new_label_array = [];
+
+        for(var i=0;i<now_label_length;i++){
+            if(choose_label != now_label_array[i]){
+                new_label_array.push(now_label_array[i]);
+            }
+        }
+        console.log(new_label_array);
+        var new_label_list = new_label_array.join("|");
+        console.log(new_label_list);
+        $("input[name='"+class_name1+"']").val(new_label_list)
+        $("input[name='"+class_name2+"']").val(new_label_list)
+        $(e).remove();
+    }
+
+    /* 两边字符去除 start */
+    //str 要去除的字符串
+    //character 特殊的字符
+    //option left rigth both
+    function wipe_str_out(str,character,option){
+        var str_length = str.length;
+        var start_str = str.substring(0,1);
+        var end_str = str.substring(str_length-1,str_length);
+        //console.log(start_str);
+        //console.log(end_str);
+        switch (option){
+            case "right":
+                if(end_str == character){
+                    str = str.substring(0,str_length-1);
+                }
+                break;
+            case "left":
+                if(start_str == character){
+                    str = str.substring(1,str_length);
+                }
+                break;
+            case "both":
+                if(end_str == character){
+                    str = str.substring(0,str_length-1);
+                }
+                str_length = str.length;
+                if(start_str == character){
+                    str = str.substring(1,str_length);
+                }
+                break;
+        }
+        return str;
+    }
+    /* 两边字符去除 end */
+
+    /* 元素在数组中出现的位置 start */
+    function position_of_array(str,array){
+        for(var i=0;i<array.length;i++){
+            if(str == array[i]){
+                return i;
+                break;
+            }else{
+                continue;
+            }
+        }
+    }
+    /* 元素在数组中出现的位置 end */
+</script>
+</body>
+
+</html>

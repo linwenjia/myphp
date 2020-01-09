@@ -1,0 +1,258 @@
+		<link rel="stylesheet" href="<{$res}>/css/swiper-3.4.2.min.css" />
+		<link rel="stylesheet" href="<{$res}>/css/index.css" />
+	<body>
+		<!--头部-->
+		<{include "public/header.html"}>
+		<!--头部end-->
+		<!--轮播图-->
+		<div class="banner" id="banner">
+			<div id="myCarousel" class="carousel slide imgbox" id="bannerimg">
+				<!-- 轮播（Carousel）指标 -->
+				<ol class="carousel-indicators">
+					<{foreach $json_data.banner as $key => $val}>
+					<li data-target="#myCarousel" data-slide-to="<{$key}>" class="<{if $key==0}>active<{/if}>"></li>
+					<{/foreach}>
+				</ol>   
+				<!-- 轮播（Carousel）项目 -->
+				<div class="carousel-inner">
+					<{foreach $json_data.banner as $key => $val}>
+					<div class="item <{if $key==0}>active<{/if}>">
+						<img src="<{$url_site}><{$val.img_path}>" alt="<{$val.img_desc}>">
+					</div>
+					<{/foreach}>
+				</div>
+			</div> 
+		</div>
+		<!--轮播图end-->
+		<!--核心课程-->
+		<div class="centre content">
+			<div class="centre_box">
+				<p><span><img src="<{$res}>/img/title_service.png"/></span></p>
+				<div class="detail">
+					<div class="detail_one clearfix">
+						<div class="detail_left fl">
+							<img src="<{$url_news}><{$json_data.product[1].news_pic}>" alt="<{$json_data.product[1].news_imgalt}>"/>
+						</div>
+						<div class="detail_right fr">
+							<div class="title clearfix">
+								<p class="fl"><{$json_data.product[1].news_name}></p>
+								<span class="fr"><a href="<{$url_show}><{$json_data.product[1].news_id}>"><img src="<{$res}>/img/browse0.png"/></a></span>
+							</div>
+							<div class="context">
+								<p class="centre_txt"><{$json_data.product[1].news_pname}></p>
+								<span><img src="<{$res}>/img/icon0.png"/></span>
+							</div>
+						</div>
+					</div>
+					<div class="detail_two clearfix">
+						<div class="detail_left fl">
+							<div class="title clearfix">
+								<p class="fl"><{$json_data.product[0].news_name}></p>
+								<span class="fr change"><a href="<{$url_show}><{$json_data.product[0].news_id}>"></a></span>
+							</div>
+							<div class="context">
+								<p class="centre_txt"><{$json_data.product[0].news_pname}></p>
+								<span><img src="<{$res}>/img/icon1.png"/></span>
+							</div>
+						</div>
+						<div class="detail_right fr">
+							<img src="<{$url_news}><{$json_data.product[0].news_pic}>" alt="<{$json_data.product[0].news_imgalt}>"/>
+						</div>
+					</div>
+				</div>
+				<div class="iconlist">
+					<ul class="iconlist_ul clearfix">
+						<li>
+							<div><img src="<{$res}>/img/icon2.png"/></div>
+							<p>品牌</p>
+						</li>
+						<li>
+							<div><img src="<{$res}>/img/icon3.png"/></div>
+							<p>专注</p>
+						</li>
+						<li>
+							<div><img src="<{$res}>/img/icon4.png"/></div>
+							<p>易学</p>
+						</li>
+						<li>
+							<div><img src="<{$res}>/img/icon5.png"/></div>
+							<p>有趣</p>
+						</li>
+						<li>
+							<div><img src="<{$res}>/img/icon6.png"/></div>
+							<p>创新</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--核心课程end-->
+		<!--关于我们-->
+		<div class="about">
+			<div class="content clearfix">
+				<div class="about_left fl">
+					<p><span><img src="<{$res}>/img/title_about.png"/></span></p>
+					<{foreach $json_data.about as $key => $val}>
+					<div class="about_div_html txt_none">
+						<div class="context">
+							<a href="<{$url_show}><{$val.news_id}>">
+								<p><{$val.news_name}></p>
+								<div class="text about_txt"><{$val.news_pname}></div>
+							</a>
+						</div>
+						<span class="more"><a href="<{$url_show}><{$val.news_id}>">查看详情</a></span>	
+					</div>
+					<{/foreach}>
+				</div>
+				<div class="about_right fl">
+					<div class="swiper-container" id="swiper_about">
+    					<div class="swiper-wrapper">
+    						<{foreach $json_data.about as $key =>$val}>
+        					<div class="swiper-slide" data_index="<{$key}>">
+        						<img src="<{$url_news}><{$val.news_pic}>" alt="<{$val.news_imgalt}>"/>
+        					</div>
+        					<{/foreach}>
+    					</div>
+					</div>
+					<div class="box">
+						<div class="text fl">关于我们 About</div>
+						<p class="fr">
+							<span class="pre swiper-button-prev" id="about_prev"> < </span>
+							<span class="line">|</span>
+							<span class="next swiper-button-next" id="about_next"> > </span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--关于我们end-->
+		<!--学员风采-->
+		<div class="student_style content">
+			<p><span><img src="<{$res}>/img/title_cases.png"/></span></p>
+			<ul class="student_style_ul clearfix">
+				<{foreach $json_data.success as $key => $val}>
+				<li>
+					<a href="<{$url_show}><{$val.news_id}>">
+						<img src="<{$url_news}><{$val.news_pic}>" alt="<{$val.news_imgalt}>"/>
+						<p><span><{$val.news_name}></span></p>
+					</a>
+				</li>
+				<{/foreach}>
+			</ul>
+		</div>
+		<!--学员风采end-->
+		<div class="bigbox">
+			<!--新闻资讯-->
+			<div class="news">
+			<div class="content">
+				<div class="news_top clearfix">
+					<div class="news_left fl">
+						<p><span><img src="<{$res}>/img/title_news.png"/></span></p>
+						<div class="new_body">
+							<{foreach $json_data.news[0].data as $key => $val}>
+							<{if $key<4}>
+							<div class="context news_sel">
+								<p><{$val.news_name}></p>
+								<div class="body">
+									<a href="<{$url_show}><{$val.news_id}>" class="news_txt">
+										<{$val.news_pname}>
+									</a>
+								</div>
+							</div>
+							<{/if}>
+							<{/foreach}>
+							<ul class="numlist clearfix">
+								<{foreach $json_data.news[0].data as $key => $val}>
+								<{if $key<4}>
+								<li class="num_sel">
+									<a href="<{$url_show}><{$val.news_id}>">
+										<p><{$val.add_times|date_format:"%d"}></p><span><{$val.add_times|date_format:"%Y-%m"}></span>
+									</a>
+								</li>
+								<{/if}>
+								<{/foreach}>
+							</ul>
+						</div>
+					</div>
+					<div class="news_right fl">
+						<div class="time"><{$json_data.news[0].data[4].add_times|date_format:"%Y-%m-%d"}></div>
+						<img src="<{$res}>/img/new0.jpg"/>
+						<p><{$json_data.news[0].data[4].news_pname}></p>
+					</div>
+				</div>
+				<div class="news_bottom clearfix">
+					<div class="left fl">
+						<div class="news_bottom_head clearfix">
+							<span class="fl title"><{$json_data.news[0].cls_name}></span>
+							<span class="fr more"><a href="<{$url_cls}><{$json_data.news[0].cls_id}>">查看更多>></a></span>
+						</div>
+						<ul class="news_ul">
+							<{foreach $json_data.news[0].data as $key => $val}>
+							<{if $key>4}>
+							<li>
+								<a href="<{$url_show}><{$val.news_id}>" class="clearfix">
+									<p class="fl"><{$val.news_name}></p>
+									<span class="fr"><{$val.add_times|date_format:"%y-%m-%d"}></span>
+								</a>
+							</li>
+							<{/if}>
+							<{/foreach}>
+						</ul>
+					</div>
+					<div class="right fl">
+						<div class="news_bottom_head clearfix">
+							<span class="fl title"><{$json_data.news[1].cls_name}></span>
+							<span class="fr more"><a href="<{$url_cls}><{$json_data.news[1].cls_id}>">查看更多>></a></span>
+						</div>
+						<ul class="news_ul">
+							<{foreach $json_data.news[1].data as $key => $val}>
+							<{if $key<5}>
+							<li>
+								<a href="<{$url_show}><{$val.news_id}>" class="clearfix">
+									<p class="fl"><{$val.news_name}></p>
+									<span class="fr"><{$val.add_times|date_format:"%y-%m-%d"}></span>
+								</a>
+							</li>
+							<{/if}>
+							<{/foreach}>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+			<!--新闻资讯end-->
+			<!--合作伙伴-->
+			<div class="parnter content">
+				<div class="swiper-container" id="swiper_parnter">
+    				 <div class="swiper-wrapper">
+    				 	<{foreach $json_data.parnert as $key => $val}>
+        				<div class="swiper-slide div_hover">
+        					<img src="<{$url_news}><{$val.news_pic}>" alt="<{$val.news_imgalt}>"/>
+        				</div>
+        				<{/foreach}>
+    				 </div>
+				</div>
+				<!-- 如果需要导航按钮 -->
+				<div class="swiper-button-prev" id="swiper-button-prev"> < </div>
+    			<div class="swiper-button-next" id="swiper-button-next"> > </div>
+			</div>
+			<!--合作伙伴end-->
+		</div>
+		<!--友情链接-->
+		<div class="link">
+			<div class="content">
+				<p>友情链接：</p>
+				<ul class="link_ul clearfix">
+					<{foreach $default_link.data as $key => $val}>
+					<li><a href="<{$val.link_url}>"><{$val.link_name}></a></li>
+					<{/foreach}>
+				</ul>
+			</div>
+		</div>
+		<!--友情链接end-->
+		<!--底部-->
+		<{include "public/footer.html"}>
+		<!--底部end-->
+	</body>
+	<script src="<{$res}>/js/swiper-3.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<{$res}>/js/index.js" type="text/javascript" charset="utf-8"></script>

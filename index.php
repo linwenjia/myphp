@@ -1,18 +1,11 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-// 应用入口文件
-if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');// 检测PHP环境
+	/**
+	 * 单一入口文件
+	 */
+    define('DS',DIRECTORY_SEPARATOR);
+//	define("TPLSTYLE", "fst");                        //默认模板存放的目录
+	define("APP", "home");           //设置当前应用的目录
+	require('./brophp/bro.php'); //加载框架的入口文件
 
-define('APP_DEBUG',True);// 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
 
-define('APP_PATH','./Application/');// 定义应用目录
 
-require './ThinkPHP/ThinkPHP.php'; // 引入ThinkPHP入口文件

@@ -1,0 +1,307 @@
+<{include "public/header.html"}>
+<style>
+    .fpage_ul{
+        position: relative;
+        top: -10px;
+    }
+
+</style>
+<link rel="shortcut icon" href="favicon.ico">
+
+
+<link href="<{$res}>/bootstrap/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="<{$res}>/bootstrap/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<!-- Data Tables -->
+<base target="_self">
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js"></script>
+<script src="<{$res}>/bootstrap/js/config.js"></script>
+<script src="<{$res}>/bootstrap/js/tpl/user_list.js"></script>
+<script>
+    var id_arr = [];
+    $(function(){
+        $(".fpage_ul").children("li").children("a").attr("target",'_self');
+        $(".fpage_ul").children("b").children('li').children("a").attr("target",'_self');
+//        $(".fpage_ul>a").attr("target","_self");
+    });
+</script>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <input type="phone" name="activity_title" value="" placeholder="视频名字" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="order_state" name="order_state">
+                        <option value="1">视频分类</option>
+                        <option value="2">电视剧</option>
+                        <option value="3">电影</option>
+                        <option value="4">动漫</option>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <label class="btn btn-sm btn-info">标签</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="btn btn-sm btn-success">搜索</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="row">
+
+        <{foreach $data_video as $key=>$val}>
+            <div class="col-sm-4">
+                <div class="pull-left"><input style="margin: 0" type="checkbox" name="video_check" value="<{$val.md5}>"></div>
+                <div class="contact-box">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class=" m-t-xs img-responsive" src="<{$video_path_pre}><{$val.rpath}>/<{$val.output.pic1|basename}>">
+                                <div class="m-t-xs font-bold">
+                                    <label onclick="mod_duo('<{$val.md5}>')" class="btn btn-sm btn-success">多集</label>
+                                    <label class="btn btn-sm btn-success">单集</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong><{$val.orgfile|regex_replace:"/\..*/":""}></strong><label onclick="get_key(this);" index="<{$val.md5}>" class="btn btn-sm btn-primary pull-right" >查看KEY</label></h3>
+                            <p><i class="fa fa-map-marker"></i> 电视剧</p>
+                            <address>
+                                <strong>都市,搞笑,国产</strong>
+                                <hr>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4"><label class="btn btn-sm btn-info">第几集</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="num_<{$val.md5}>" value="<{$val.num}>" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label onclick="set_num('<{$val.md5}>')" class="btn btn-sm btn-info">设置</label>
+                                    </div>
+                                </div>
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                </div>
+            </div>
+        <{/foreach}>
+
+        <{$fpage}>
+
+    </div>
+    <label onclick="get_check();" class="btn btn-sm btn-primary">获取选中</label>
+</div>
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">批量修改</h4>
+                <small class="font-bold">修改内容的分类和标签</small>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="tag_body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">首集KEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="" placeholder="填写第一集的KEY" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div id="select_body">
+                        <select class="form-control">
+                            <option value="dd">分类名字</option>
+                            <option value="dd">分类名字</option>
+                            <option value="dd">分类名字</option>
+                        </select>
+                    </div>
+                    <div id="tag_list">
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="data_post();" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">批量修改</h4>
+                <small class="font-bold">修改内容的分类和标签</small>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">首集KEY</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="first_key" placeholder="填写第一集的KEY" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">第几集</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="video_num" placeholder="填写这个是第几集" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="choose_id" value=""/>
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="data_post('duo');" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    /* 获取所有选中的视频 start */
+    function get_check(){
+        $.each($('input[name="video_check"]:checked'),function(){
+            id_arr.push($(this).val());
+        });
+        $("#myModal2").modal("show");
+        console.log(id_arr);
+    }
+    /* 获取所有选中的视频 end */
+    /* 获取当前视频 的 KEY start */
+    function get_key(e){
+        var self_key = $(e).attr("index");
+        console.log(self_key);
+        // 甜窗展示 start
+        swal({title:"视频KEY请手动复制",text:self_key,type:"success"});
+
+    }
+    /* 获取当前视频 的 KEY end */
+
+    /* 修改为单集 start */
+    function mod_dan(){
+        // pid 修改为自己的 md5
+        // is_more = 0
+
+    }
+    /* 修改为单集 end */
+
+    /* 修改为多集 start */
+    function mod_duo(id){
+        // is_more = 1
+        // pid 修改为第一集的 key
+        if(!id){
+            swal({title:"修改视频",text:"请选择要修改的视频",type:"error"});
+            return false;
+        }
+        $("input[name='choose_id']").val(id);
+        $("#myModal3").modal('show');
+        // 展示模态框
+
+    }
+    /* 修改为多集 end */
+/* 数据提交 start */
+    function data_post(type){
+        // type  = duo  是  多集 修改
+        // type = dan  是 单集修改
+        if(type == 'duo'){
+            var choose_id = $("input[name='choose_id']").val();
+            var key = $("input[name='first_key']").val();
+            var num = $("input[name='video_num']").val();
+//            console.log(choose_id);
+//            console.log(key);
+
+            if(!key || !choose_id){
+                swal({title:"修改视频",text:"数据不完善",type:"error"});
+                return false;
+            }
+            $.ajax({
+                url:"<{$url}>/mod_video",
+                type:"POST",
+                data:{"choose_id":choose_id,"key":key,"type":type,"num":num},
+                success:function(msg){
+                    console.log(msg);
+                    if(msg.code == 200){
+                        $("#myModal3").modal('hide');
+
+                        swal({title:"修改视频",text:"修改成功",type:"success"});
+                    }else{
+                        $("#myModal3").modal('hide');
+
+                        swal({title:"修改视频",text:msg.msg,type:"error"});
+
+                    }
+                },
+                error:function(){
+                    swal({title:"修改视频",text:"网络错误",type:"error"});
+                }
+            });
+
+        }
+
+    }
+/* 数据提交 end */
+
+    /* 快捷设置第几集 start */
+    function set_num(key){
+        var num = $("input[name='num_"+key+"']").val();
+        if(!key || !num){
+            swal({title:"修改视频",text:"数据不完善",type:"error"});
+            return false;
+        }
+        $.ajax({
+            url:"<{$url}>/mod_video",
+            type:"POST",
+            data:{"choose_id":key,"type":"set_num","num":num},
+            success:function(msg){
+                console.log(msg);
+                if(msg.code == 200){
+                    $("#myModal3").modal('hide');
+
+                    swal({title:"修改视频",text:"修改成功",type:"success"});
+                }else{
+                    $("#myModal3").modal('hide');
+
+                    swal({title:"修改视频",text:msg.msg,type:"error"});
+
+                }
+            },
+            error:function(){
+                swal({title:"修改视频",text:"网络错误",type:"error"});
+            }
+        });
+    }
+    /* 快捷设置第几集 end */
+
+</script>
+</html>

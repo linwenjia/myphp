@@ -1,0 +1,370 @@
+.controller{
+	width: 100%;
+	background: #FFF;
+}
+.controller>.TOP{
+	padding: 10px 0;
+	overflow: hidden;
+}
+.controller>.TOP>p{
+	color:#666;
+	width: 80%;
+	float: left;
+	margin:  0;
+}
+.controller>.TOP>button{
+	float: right;
+	background: #1ab394;
+	color:#FFF;
+	padding: 5px 10px;
+	border: none;
+	margin: 0 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	outline: none;
+}
+.controller>.TOP>button:active{
+	background: #18a689;
+}
+/*分类样式*/
+.controller .cls_ul{
+ 	width: calc(20% - 00px);
+ 	padding: 10px;
+ 	height: 700px;
+ 	overflow-y:auto; 
+ 	border: 1px solid #dbdbdb;
+ 	box-sizing: border-box;
+}
+.controller .cls_ul>select{
+	width: 100px;
+	padding: 5px;
+	background: none;
+}
+.controller .list_ul,.controller .list_ul img{
+	width: 100%;
+}
+.controller .list_ul>li{
+	padding: 50px 0;
+	margin-top: 10px;
+	cursor: pointer;
+	border:1px solid #dbdbdb;
+	background: #f5f5f5;
+}
+.controller .list_ul>li:hover{
+	border: 1px solid #1ab394;
+}
+/*分类样式end*/
+/*展示区样式*/
+.controller .body_txt{
+ 	width: calc(55% - 40px);
+ 	margin: 0 10px;
+ 	padding: 10px;
+ 	background: #f5f5f5;
+ 	height: 700px;
+ 	overflow-y: auto;
+}
+.controller .body_txt>img{
+	width: calc(100% - 10px);
+}
+/*展示区样式end*/
+/*数据控制样式*/
+.controller .data{
+	width: 25%;
+	max-height: 500px;
+	overflow-y:auto; 
+	box-sizing: border-box;
+}
+.controller .data>h4{
+	width: calc(100% - 10px);
+	margin:0;
+	padding: 5px;
+	color:#1ab394;
+	border-bottom: 1px solid #dbdbdb;
+}
+.controller .inp_txt{
+	width: calc(100% - 4px);
+	padding: 10px 2px;
+}
+.controller .inp_txt>input{
+	width: calc(70% - 5px);
+	border: 1px solid #dbdbdb;
+	height: 28px;
+	font-size: 16px;
+	padding-left: 5px;
+}
+.controller .inp_txt>span{
+	display: block;
+	width: 28%;
+	font-size:14px;
+	line-height: 32px;
+	text-align: right;
+	color:#232323;
+}
+.controller .inp_txt>select{
+	width: 70%;
+	height: 32px;
+	padding: 5px;
+	background: none;
+}
+.controller .data_cls{
+	width: 70%;
+}
+.controller .data_cls>p{
+	width: calc(50% - 1px);
+	margin:0;
+	font-size: 14px;
+	text-align: center;
+	padding: 5px 0;
+}
+.controller .data_cls>p>span{
+	display: block;
+	padding: 5px 0;
+	width: 80%;
+	margin:0 10%;
+	border-radius: 2px;
+	cursor: pointer;
+}
+.controller .data_cls>p>.active{
+	background: #1ab394;
+	color:#FFF;
+}
+.controller .data_cls>p:last-child{
+	border-left: 1px solid #dbdbdb;
+}
+.controller .level{
+	width: 70%;
+}
+.controller .level2{
+	width: 70%;
+	font-size: 14px;
+}
+.controller .level2 .choose,.controller .level2 .position_s{
+	width: 100%;
+}
+.controller .level2 .choose input{
+	width: 70%;
+	height: 28px;
+}
+.controller .level>ul>li{
+	width: 33.3333%;
+	float: left;
+	box-sizing: border-box;
+	border-right: 1px solid #dbdbdb;
+	font-size: 14px;
+}
+.controller .level>ul>li>span{
+	display: block;
+	width: 80%;
+	margin: 0 10%;
+	text-align: center;
+	line-height: 32px;
+	cursor: pointer;
+}
+.controller .level>ul>li>.active{
+	border-radius: 2px;
+	background: #1ab394;
+	color:#FFF;
+}
+.controller .level>ul>li:last-child{
+	border: none;
+}
+.controller .level>input{
+	margin: 10px 0;
+	width: 99%;
+	font-size: 16px;
+	height: 28px;
+	border: 1px solid #dbdbdb;
+}
+.controller .choose,.controller .level2 .position_s{
+	width: 70%;
+}
+.controller .choose>p>span:last-child,.controller .level2 .position_s>p>span:last-child{
+	padding-left: 10px;
+	cursor: pointer;
+}
+.controller .choose .ra_sele,.controller .position_s .ra_sele{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: #FFF;
+	border: 1px solid #1ab394;
+	border-radius: 50%;
+	margin-top: 4px;
+	cursor: pointer;
+}
+.controller .level2 .choose .ra_sele,.controller .level2 .position_s .ra_sele{
+	margin-top: 2px;
+}
+.controller .choose .ra_sele>span,.controller .position_s .ra_sele>span{
+	display: block;
+	width: 70%;
+	height: 70%;
+	border-radius: 50%;
+	margin: 15%;
+}
+.controller .choose .ra_sele>.span_active,.controller .position_s .ra_sele>.span_active{
+	background: #1ab394;
+}
+.controller .save_btn{
+	width: 20%;
+	background: #1ab394;
+	color:#FFF;
+	border-radius: 4px;
+	border: none;
+	padding: 5px 0;
+	margin: 10px 40%;
+}
+.controller .data>h4>button{
+	background: #1ab394;
+	color:#FFF;
+	border: none;
+	border-radius: 4px;
+	padding: 4px 10px;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+.controller .data>h4>button:active{
+	background: #14caa5;
+}
+/*数据控制样式end*/
+/*预览弹框*/
+.bullet_box{
+	width: 60%;
+	height: 600px;
+	position: fixed;
+	left: 20%;
+	top: calc(50% - 300px);
+	background: #f3f3f3;
+	border-radius: 10px;
+	border: 1px solid #232323;
+}
+.bullet_box>p{
+	overflow: hidden;
+	margin: 0;
+	padding: 10px;
+}
+.bullet_box{
+	padding-left: 20px; 
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.bullet_box>p>span{
+	float: right;
+	cursor: pointer;
+	color:#232323;
+}
+.bullet_box textarea{
+	width: 0;
+	height: 0;
+}
+.bullet_box ul.json-dict, ol.json-array {
+	margin: 0;
+  list-style-type: none;
+  margin: 0 0 0 1px;
+  border-left: 1px dotted #ccc;
+  padding-left: 2em;
+}
+.bullet_box .json-string {
+  color: #0B7500;
+}
+.bullet_box .json-literal {
+  color: #1A01CC;
+  font-weight: bold;
+}
+
+/* Toggle button */
+.bullet_box a.json-toggle {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+}
+.bullet_box a.json-toggle:focus {
+  outline: none;
+}
+.bullet_box a.json-toggle:before {
+  color: #aaa;
+  content: "\25BC"; /* down arrow */
+  position: absolute;
+  display: inline-block;
+  width: 1em;
+  left: -1em;
+}
+.bullet_box a.json-toggle.collapsed:before {
+  transform: rotate(-90deg); /* Use rotated down arrow, prevents right arrow appearing smaller than down arrow in some browsers */
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}
+
+/* Collapsable placeholder links */
+.bullet_box a.json-placeholder {
+  color: #aaa;
+  padding: 0 1em;
+  text-decoration: none;
+}
+.bullet_box a.json-placeholder:hover {
+  text-decoration: underline;
+}
+/*预览弹框end*/
+/*生成新控制弹框*/
+.Cls_obj{
+	width: 200px;
+	height: 200px;
+	background: #FFF;
+	border: 1px solid #232323;
+	border-radius: 5px;
+	position: fixed;
+	left: calc(50% - 50px);
+	top: calc(50% - 50px);
+}
+.Cls_obj>p{
+	text-align: center;
+}
+.Cls_obj>input{
+	width: 80%;
+	height: 30px;
+	padding-left:5px; 
+	border: 1px solid #dbdbdb;
+	border-radius: 2px;
+	background: #eee;
+	margin: 5px 10%;
+}
+.Cls_obj>button{
+	background: #1ab394;
+	color:#FFF;
+	width: 60%;
+	margin: 10px 20%;
+	padding: 10px 0;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+}
+/*生成新控制弹框end*/
+/*弹框*/
+.bomb{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.bomb>div{
+	width: 200px;
+	height: 100px;
+	padding:10px;
+	margin:100px calc(50% - 100px);
+	background: #FFF;
+	border-radius: 5px;
+}
+.bomb p{
+	text-align: center;
+}
+.bomb button{
+	width: 80%;
+	margin: 10px 10%;
+	background: #1ab394;
+	color:#FFF;
+	border: none;
+	padding:8px 0;
+	border-radius: 5px;
+}
+/*弹框end*/

@@ -1,0 +1,58 @@
+<{include "public/header.html"}>
+<link rel="shortcut icon" href="favicon.ico">
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/jeditable/jquery.jeditable.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js"></script>
+<script src="<{$res}>/bootstrap/js/config.js"></script>
+<body class="gray-bg">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>发送通知 <small>只有管理员可操作</small></h5>
+            </div>
+            <div class="ibox-content">
+                <form target="_self" method="POST" id="cls_form" class="form-horizontal" action="<{$url}>/send_msg">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">通知标题</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="msg_title" value="标题" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择会员</label>
+                        <div class="col-sm-10">
+                            <select name="to_staff_id" class="form-control">
+                                <option value="all">所有会员</option>
+                                <option value="2">ddd</option>
+                                <option value="2">jack</option>
+                                <option value="2">ddd</option>
+                                <option value="2">ddd</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">通知内容</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="msg"></textarea>
+                            <input type="hidden" name="sub" value="ok">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button type="submit" class="btn btn-danger" >提交</button>
+                            <button class="btn btn-white" type="reset">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

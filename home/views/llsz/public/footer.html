@@ -1,0 +1,50 @@
+<!--底部-->
+<div class="foot">
+	<div class="content clearfix">
+		<div class="left fl">
+			<div class="foot_nav clearfix">
+				<span class="fl">网站导航：</span>
+				<ul class="foot_nav_ul clearfix fl">
+					<{foreach $default_column as $key => $val}>
+					<li><a href="<{$val.url}>"><{$val.cls_name}></a></li>
+					<{/foreach}>
+				</ul>
+			</div>
+			<div class="company clearfix">
+				<p class="logo fl"><img src="<{$res}>/img/logo.png"/></p>
+				<div class="company_msg fl">
+					<p class="title"><{$data_site.company_name}></p>
+					<span>服务热线：<{$data_site.company_tel}></span>
+					<span>联系邮箱：<{$data_site.company_email}></span>
+					<span>公司地址：<{$data_site.company_address}></span>
+					<span>官网网址：<{$default_column[0].url}></span>
+					<p>
+						<span>惠州霖林罗兰文化传播有限公司版权所有<a href="http://www.miitbeian.gov.cn"><{$data_site.record_code}></a></span>
+						<span>技术支持：<a href="http://www.wh2013.net">万鸿信息技术</a></span>
+						<{if $data_site.is_auto_push == 'on'}>
+		                <{$data_site.auto_push_code}>
+		            <{/if}>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="right fl">
+			<div class="wechat">
+				<p class="wel"><img src="<{$url_site}><{$data_site.site_code}>"/></p>
+				<p class="icon">
+					<a href="<{$default_column[0].url}>"><span class="one"></span></a>
+					<span class="two" id="gotop"></span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--底部end-->
+<!--公共JS-->
+<script type="text/javascript">
+	var key_url = '<{$url_key}>';
+</script>
+<script src="<{$public}>/bootstrap/js/jquery.min.js"></script>
+<script src="<{$public}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/js/common.js"></script>
+<!--公共JSend-->

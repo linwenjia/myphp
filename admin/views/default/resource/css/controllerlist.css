@@ -1,0 +1,77 @@
+.con_list{
+	width: 100%;
+	background: #FFF;
+}
+/*控制器列表样式*/
+.con_ul>li{
+	width: calc(33.3333% - 20px);
+	padding: 10px 5px;
+	margin: 10px 5px;
+	background: #f5f5f5;
+}
+.con_ul>li:last-child{
+	cursor: pointer;
+}
+.con_ul>li>img{
+	width: 20px;
+	margin: 0 calc(50% - 10px);
+}
+.con_ul>li>div>div{
+	width: 35%;
+	text-align: center;
+	color:#232323;
+}
+.con_ul>li>div>div>span{
+	margin:0 5px;
+	cursor: pointer;
+}
+.con_ul>li>div>div>span:nth-child(1){
+	margin-right: 10px;
+}
+.con_ul>li>div>div>span:nth-child(1)>a:hover{
+	color:#19b293;
+}
+.con_ul>li>div>div>span:nth-child(2):hover{
+	color:#ff5555;
+}
+/*控制器列表样式end*/
+/*弹框样式*/
+.Bullet_box{
+	width: 300px;
+	height: 200px;
+	padding: 10px;
+	position: fixed;
+	left: calc(50% - 150px);
+	top: calc(50% - 100px);
+	background: #FFF;
+	box-shadow: 0px 0px 5px 5px #dbdbdb;
+}
+.Bullet_box input{
+	width: 100%;
+	border: none;
+	height: 35px;
+	background: #f3f3f5;
+	color:#232323;
+	padding-left: 5px;
+	margin: 5px 0;
+}
+.Bullet_box>div>div{
+	margin-top: 10px;
+}
+.Bullet_box button{
+	background: #19b293;
+	color:#FFF;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 4px;
+}
+.Bullet_box>div{
+	position: relative;
+}
+.Bullet_box img{
+	position: absolute;
+	top: -26px;
+	right: -10px;
+	cursor: pointer;
+}
+/*弹框样式end*/

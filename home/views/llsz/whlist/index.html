@@ -1,0 +1,104 @@
+	<link rel="stylesheet" href="<{$res}>/css/whlist.css" />
+	<body>
+		<!--头部-->
+		<{include "public/header.html"}>
+		<!--头部end-->
+		<{if $smarty.get.cid!=10}>
+		<!--列表页-->
+		<div class="news_show content clearfix">
+			<div class="left fl">
+				<div class="about_nav">
+					<p class="title"><{$json_data.cls.cls_name}></p>
+					<span class="eg">CASES</span>
+					<ul class="news_nav_ul">
+						<{foreach $json_data.cls.data as $key =>$val}>
+						<li class="<{if $smarty.get.cid==$val.news_cls_id}>active<{/if}>"><a href="<{if $val.url == ''}><{$url_cls}><{$val.news_cls_id}><{else}><{$val.url}><{/if}>"><{$val.news_cls_name}></a></li>
+						<{/foreach}>
+					</ul>
+				</div>
+				<div class="about_nav lianxi">
+					<p class="title">联系我们</p>
+					<span class="eg">CONTACT</span>
+					<p class="p"><span>电话：</span><span><{$data_site.company_tel}></span></p>
+					<p class="p"><span>邮箱：</span><span><{$data_site.company_email}></span></p>
+					<div class="p"> <p>地址：</p> <p><{$data_site.company_address}></p> </div>
+				</div>
+			</div>
+			<div class="right fl">
+				<div class="head">
+					<p><span><a href="<{$default_column[0].url}>">首页 > </a><span><{$json_data.cls.cls_name}></span></span></p>
+				</div>
+				<div class="main">
+					<ul class="list_ul">
+						<{foreach $json_data.list.data as $key => $val}>
+						<li>
+							<a href="<{$url_show}><{$val.news_id}>" class="clearfix">
+								<div class="img fl"><img src="<{$url_news}><{$val.news_pic}>" alt="<{$val.news_imgalt}>"/></div>
+								<div class="list_con fl">
+									<div class="list_top clearfix">
+										<p class="fl txt_ovflow"><{$val.news_name}></p>
+										<div class="list_time fr">
+											<p><{$val.add_times|date_format:"%m/%d"}></p>
+											<p><{$val.add_times|date_format:"%Y"}></p>
+										</div>
+									</div>
+									<div class="desc desc_txt">
+										<{$val.news_pname}>
+									</div>
+								</div>
+							</a>
+						</li>
+						<{/foreach}>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--列表页end-->
+		<{else}>
+		<!--团队成员-->
+		<div class="news_show content clearfix">
+			<div class="left fl">
+				<div class="about_nav">
+					<p class="title"><{$json_data.cls.cls_name}></p>
+					<span class="eg">ABOUT US</span>
+					<ul class="news_nav_ul"> 
+						<{foreach $json_data.cls.data as $key =>$val}>
+						<li class="<{if $smarty.get.cid==$val.news_cls_id}>active<{/if}>"><a href="<{if $val.url == ''}><{$url_cls}><{$val.news_cls_id}><{else}><{$val.url}><{/if}>"><{$val.news_cls_name}></a></li>
+						<{/foreach}>
+					</ul>
+				</div>
+				<div class="about_nav lianxi">
+					<p class="title">联系我们</p>
+					<span class="eg">CONTACT</span>
+					<p class="p"><span>电话：</span><span><{$data_site.company_tel}></span></p>
+					<p class="p"><span>邮箱：</span><span><{$data_site.company_email}></span></p>
+					<div class="p"> <p>地址：</p> <p><{$data_site.company_address}></p> </div>
+				</div>
+			</div>
+			<div class="right fl">
+				<div class="head">
+					<p><span><a href="<{$default_column[0].url}>">首页 > </a><span>团队成员</span></span></p>
+				</div>
+				<div class="main">
+					<ul class="pro_ul clearfix">
+						<{foreach $json_data.list.data as $key => $val}>
+						<li>
+							<a href="<{$url_show}><{$val.news_id}>">
+								<div class="img">
+									<img src="<{$url_news}><{$val.news_pic}>" alt="<{$val.news_imgalt}>"/>
+								</div>
+								<p class="txt_ovflow"><{$val.news_name}></p>
+							</a>
+						</li>
+						<{/foreach}>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--团队成员end-->
+		<{/if}>
+		<!--底部-->
+		<{include "public/footer.html"}>
+		<!--底部end-->
+	</body>
+	<script src="<{$res}>/js/whlist.js" type="text/javascript" charset="utf-8"></script>

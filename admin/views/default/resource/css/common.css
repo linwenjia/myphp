@@ -1,0 +1,27 @@
+html,body{
+	margin:0;
+	padding: 0 10px;
+	font-family: '微软雅黑';
+	color:#666;
+}
+.overflow{
+	overflow: hidden;
+}
+ul,li{
+	padding: 0;
+	margin:0;
+	list-style: none;
+}
+a{
+	color:#232323;
+	text-decoration: none;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.txt_none{
+	display: none;
+}

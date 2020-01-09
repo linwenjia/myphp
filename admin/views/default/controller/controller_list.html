@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="<{$res}>/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="<{$res}>/css/controllerlist.css" />
+</head>
+<body>
+	<div class="con_list">
+		<!-- 控制器列表 -->
+		<ul class="con_ul overflow">
+			<{foreach $controller.list as $key => $val}>
+			<li class="fl">
+				<div class="overflow">
+					<span class="fl"><{$val.controller_name}></span>
+					<div class="fr">
+						<span class="li_edit"><a href="<{$controller.url}><{$val.controller_id}>"  target="_blank">编辑</a></span>|
+						<span class="li_dele" data_id="<{$val.controller_id}>">删除</span>
+					</div>
+				</div>
+			</li>
+			<{/foreach}>
+			<li class="fl" id="last_li">
+				<img src="<{$res}>/img/icon0.png" />
+			</li>
+		</ul>
+		<!-- 控制器列表end -->
+	</div>
+	<!-- 弹框 -->
+	<div class="Bullet_box overflow txt_none" id="Bullet_box">
+		<div style="padding-top: 20px;">
+			<input type="text" name="" placeholder="填写控制器名称" id="Name" />
+			<input type="text" name="" placeholder="填写控制器注释" id="Explain" />
+			<div class="overflow">
+				<button class="Bullet_btn fr" id="Bullet_btn">完成</button>
+			</div>
+			<img src="<{$res}>/img/icon1.png" id="Bullet_hide" style="top: -10px;" />
+		</div>
+	</div>
+	<!-- 弹框end -->
+	<script type="text/javascript" src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<{$res}>/js/contlist.js"></script>
+</body>
+</html>

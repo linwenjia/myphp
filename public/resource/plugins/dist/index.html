@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>上拉加载下拉刷新</title>
+		<script src='js/jquery-1.8.3.min.js' type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="dist/dropload.css">
+		
+	</head>
+
+	<body>
+		<!--内容-->
+		<section>
+			<!--产品-->
+			<div class="shop_list">
+				<div class="outer">
+				    <div class="inner" style="margin-bottom: 50px;">
+				        <div class="lists">
+				            <!--<a class="item" href="#">
+				                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+				                <h3>1文字描述文字描述</h3>
+				                <span class="date">2014-14-14</span>
+				            </a>-->
+				        
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<!--/产品-->
+
+			
+		</section>
+		<!--底部导航-->
+		<div class="daohang">
+			<div id="daohang_index" class="daohang_list">
+				<div class="daohang_img">
+					<img src="images/home_n.png" />
+				</div>
+				<div class="daohang_text">
+					首页
+				</div>
+			</div>
+			<div id="daohang_hot" class="daohang_list">
+				<div class="daohang_img">
+					<img src="images/house_s.png" />
+				</div>
+				<div class="daohang_text">
+					热门
+				</div>
+			</div>
+			<div id="daohang_query" class="daohang_list">
+				<div class="daohang_img">
+					<img src="images/user_n.png" />
+				</div>
+				<div class="daohang_text">
+					关于我们
+				</div>
+			</div>
+		</div>
+		<!--/底部导航-->
+		<!--/内容-->
+		<script type="text/javascript">
+			$("#sosuokuang").click(function() {
+	
+				$("#sosuo_text").css("width", "20%");
+				$("#sosuokuang input").css("width", "80%");
+				$("#sosuokuang input").css("height", "100%");
+				$("#sosuo").focus();
+			});		
+			//	 底部跳转
+			$("#daohang_index").click(function() {
+//				window.location.href = "index.html";
+				console.log("首页");
+			});
+			$("#daohang_hot").click(function() {
+				console.log("热门");
+//				window.location.href = "hot_list.html";
+			});
+			$("#daohang_query").click(function() {
+				console.log("关于");
+//				window.location.href = "introduction.html";
+			});
+		</script>
+	</body>
+	<script src="dist/dropload.min.js"></script>
+<script>
+$(function(){
+
+    // dropload
+    var dropload = $('.inner').dropload({
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+        },
+        domDown : {
+            domClass   : 'dropload-down',
+            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+            domNoData  : '<div class="dropload-noData">暂无数据</div>'
+        },
+        //下拉刷新接口--数据调用
+        loadUpFn : function(me){
+            $.ajax({
+                type: 'GET',
+                url: 'json/update.json',
+                dataType: 'json',
+                success: function(data){
+                	console.log(data)
+                	var gayle=data.lists.length; //数据条数-- 判断需要
+                	var result = '';
+                	if(gayle>0){
+                		for(var i = 0; i < data.lists.length; i++){
+	                        result +=   '<a class="item opacity" href="'+data.lists[i].link+'">'
+	                                        +'<img src="'+data.lists[i].pic+'" alt="">'
+	                                        +'<h3>'+data.lists[i].title+'</h3>'
+	                                        +'<span class="date">'+data.lists[i].date+'</span>'
+	                                    +'</a>';
+	                    }
+                		if(gayle<6){ //数据条数达到屏幕高度判断 防止数据少时页面不断请求接口
+                			// 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+                		}
+                		
+                	}else{
+                		// 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                	}
+                    
+                    
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $('.lists').html(result);
+                        // 每次数据加载完，必须重置
+                        dropload.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    dropload.resetload();
+                }
+            });
+        },
+        //下拉刷新接口--数据调用
+        loadDownFn : function(me){
+            $.ajax({
+                type: 'GET',
+                url: 'json/more.json',
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                	var gayle=data.lists.length; //数据条数长度 -- 判断需要
+                	var result = '';
+                	console.log(gayle)
+                	if(gayle>0){
+                		for(var i = 0; i < data.lists.length; i++){
+	                        result +=   '<a class="item opacity" href="'+data.lists[i].link+'">'
+	                                        +'<img src="'+data.lists[i].pic+'" alt="">'
+	                                        +'<h3>'+data.lists[i].title+'</h3>'
+	                                        +'<span class="date">'+data.lists[i].date+'</span>'
+	                                    +'</a>';
+	                    }
+                		if(gayle<6){ //数据条数达到屏幕高度判断 防止数据少时页面不断请求接口
+                			// 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+                		}
+                		
+                	}else{
+                		// 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                	}
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $('.lists').append(result);
+                        // 每次数据加载完，必须重置
+                        dropload.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    dropload.resetload();
+                }
+            });
+        }
+        
+    });
+});
+</script>
+</html>

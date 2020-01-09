@@ -1,0 +1,65 @@
+<!DOCTYPE>
+<html><head>
+<script type="text/javascript">
+        var start = new Date().getTime();
+           try {
+              var urlhash = window.location.hash;
+                if (!urlhash.match("fromapp")) {
+                   if ((navigator.userAgent.match(/(iPhone|Android)/i))) {
+                        window.location.href = '/'
+                   }
+                }
+			} catch (err) { }
+        </script> 
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>404错误页面</title>
+<style type="text/css">.STYLE1 {
+	FONT-WEIGHT: bold
+}
+.STYLE2 {
+	FONT-WEIGHT: bold
+}
+</style>
+<meta content="" name=""></head>
+<body>
+<a href="/"><img alt="小菜林-404页面" src="/404.png"></a>
+<script>
+        var msg = "小菜林";
+        var titAn = function() {
+            msg = msg.substring(1,msg.length)+ msg.substring(0,1);
+            document.title = msg;
+        };
+        setInterval(function(){
+            titAn()
+        },300);
+    </script>
+<style type="text/css">.STYLE1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 25px; COLOR: #0000ff
+}
+.STYLE2 {
+	FONT-SIZE: 15px; LINE-HEIGHT: 25px
+}
+BODY {
+	MARGIN-TOP: 88px; MARGIN-LEFT: 455px
+}
+</style>
+<script type="text/javascript">     
+function countDown(secs,surl){     
+ //alert(surl);     
+ var jumpTo = document.getElementById('jumpTo');
+ jumpTo.innerHTML=secs;  
+ if(--secs>0){     
+     setTimeout("countDown("+secs+",'"+surl+"')",1000);     
+     }     
+ else{       
+     location.href=surl;     
+     }     
+ }     
+</script>
+<p style="color:red;">抱歉，我们把页面弄掉了。<br><span id="jumpTo">1</span>秒后程序将在跳转到 小菜林 主页</p>
+<script type="text/javascript">countDown(5,'/');</script>
+
+</body></html>

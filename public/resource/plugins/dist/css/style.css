@@ -1,0 +1,620 @@
+.carousel {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.swipe-wrap {
+	background: #ccc;
+}
+a{
+	text-decoration: none;
+	color: #222;
+}
+header {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.sosuo_max {
+	height: 50px;
+	width: 100%;
+}
+
+section {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 50px;
+}
+.dizhi{
+	width: 90%;
+	margin: 0 5%;
+	height: auto;
+	overflow: hidden;
+}
+.shop_list {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.shop_list ul {
+	width: 95%;
+	height: auto;
+	margin: 0 2.5%;
+	overflow: hidden;
+}
+
+.shop_list ul li {
+	width: 23%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin: 10px 1%;
+}
+
+.list_li {
+	width: 90%;
+	height: auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.list_li img {
+	width: 50px;
+	height: 50px;
+}
+
+.list_li span {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	display: block;
+	font-size: 14px;
+}
+
+.label_list {
+	width: 95%;
+	height: 30px;
+	padding: 5px 0;
+	margin: 0 2.5%;
+	line-height: 30px;
+	font-size: 14px;
+	border-bottom: 1px solid #ccc;
+	/*overflow: hidden;*/
+}
+
+.label_gang {
+	width: 1%;
+	height: 25px;
+	float: left;
+	margin: 2.5px 0;
+	background: #5aa3e0;
+}
+
+.label_text {
+	width: 60%;
+	height: 100%;
+	font-size: 15px;
+	font-weight: bold;
+	float: left;
+	padding-left: 10px;
+}
+
+.label_more {
+	width: 15%;
+	height: 100%;
+	float: right;
+	text-align: center;
+	color: #999;
+	/*margin-right: 5%;*/
+}
+
+.shop_list {
+	width: 95%;
+	height: auto;
+	margin: 0 2.5%;
+	overflow: hidden;
+}
+
+.shop_query {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 10px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+}
+
+.shop_query a {
+	width: 100%;
+	height: auto;
+	display: block;
+	color: #222;
+	overflow: hidden;
+}
+
+.shop_query:nth-last-child(1) {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 10px;
+	border-bottom: none;
+	padding-bottom: 5px;
+}
+
+.query_left {
+	width: 30%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	text-align: center;
+}
+
+.query_left img {
+	width: 100px;
+	height: 90px;
+}
+
+.query_right {
+	width: 67.5%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-left: 2.5%;
+}
+
+.query_title {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.query_title span {
+	width: 100%;
+	display: block;
+	height: 20px;
+	line-height: 20px;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
+.pingfan {
+	width: 6px;
+	height: 6px;
+	position: relative;
+	top: -5px;
+	/*left: -2px;*/
+}
+
+.query_specifications {
+	color: #999;
+	height: 20px;
+	width: 100%;
+	line-height: 20px;
+	overflow: hidden;
+	/*文本不换行*/
+	white-space: nowrap;
+	/*文字超出用省略号*/
+	text-overflow: ellipsis;
+}
+
+.query_biaoqian {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+.biaoqian_list {
+	color: #FFFFFF;
+	background: #ff8b8b;
+	height: 20px;
+	line-height: 20px;
+	padding: 1.5px 10px;
+	border-radius: 5px;
+}
+
+.mayle {
+	font-size: 13px;
+	color: red;
+}
+
+.query_price {
+	color: #999;
+	height: 20px;
+	width: 100%;
+	line-height: 20px;
+	margin-top: 2px;
+}
+
+.footer_list {
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	color: #999;
+}
+
+.daohang {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	background: #fff;
+}
+
+.daohang_list {
+	width: 33.33%;
+	height: 50px;
+	float: left;
+}
+
+.daohang_img {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+}
+
+.daohang_img img {
+	margin-top: 5px;
+	width: 25px;
+	height: 25px;
+}
+
+.daohang_text {
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+}
+
+.h_header {
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	/*border-bottom: 1px solid red;*/
+	line-height: 50px;
+}
+
+.header_left {
+	float: left;
+	height: 100%;
+}
+
+.header_left_a {
+	float: left;
+	height: 100%;
+	font-size: 15px;
+	text-decoration: none;
+	color: red;
+	padding-left: 10px;
+}
+
+.header_left img {
+	height: 50px;
+}
+
+.faihui {
+	height: 22px !important;
+	display: block;
+	margin-top: 15px;
+	/*margin-left: 10px;*/
+}
+
+.right_you {
+	width: 80%;
+	height: 50px;
+	margin: 20px 10%;
+}
+
+.right_you img {
+	width: 100%;
+	height: 100%;
+}
+
+.hui_b {
+	height: 60px;
+	line-height: 60px;
+	width: 90%;
+	margin: 0 5%;
+	text-align: center;
+	font-size: 14px;
+}
+
+.header_right {
+	float: right;
+	height: 100%;
+}
+
+.header_right img {
+	height: 30px;
+	margin: 10px;
+}
+
+.kong {
+	width: 100%;
+	height: 10px;
+}
+
+.sosuo_max {
+	height: 50px;
+	width: 100%;
+}
+
+.sosuo_cent {
+	margin: 12px 2.5%;
+	height: 40px;
+	width: 95%;
+	background: #eeeeee;
+	border-radius: 5px;
+	/*padding-left: 5%;*/
+}
+
+.sosuo_cent input {
+	border-radius: 5px;
+	transition: all 1s;
+	outline: none;
+	padding-left: 5%;
+	background: #eeeeee;
+	width: 0%;
+	height: 0%;
+	float: left;
+	box-sizing: border-box;
+	/*宽度兼容 不会溢出盒子*/
+}
+
+.sosuo_text {
+	width: 100%;
+	height: 100%;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	transition: all 1s;
+	color: #a0a0a0;
+}
+
+.centen_max {
+	width: 100%;
+	height: auto;
+}
+
+
+/*详情css*/
+
+.box_section {
+	width: 95%;
+	margin: 0 2.5%;
+	height: auto;
+	overflow: hidden;
+}
+
+.specifications {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.specifications ul {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.specifications ul li {
+	width: 100%;
+	/*height: auto;*/
+	overflow: hidden;
+}
+
+.specifications_title {
+	margin-top: 10px;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.specifications_may {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	font-size: 14px;
+	color: #999;
+}
+
+.jiage {
+	font-size: 32px;
+	color: red;
+}
+
+.specifications_guige {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.specifications_guiges {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.guige_box {
+	width: 95%;
+	height: auto;
+	overflow: hidden;
+	margin: 10px 2.5%;
+}
+
+.guige_liebiao {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	color: #999;
+}
+
+.guige_liebiao ul {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.guige_liebiao ul li {
+	width: 45%;
+	height: 20px;
+	line-height: 20px;
+	float: left;
+	margin-left: 5%;
+}
+
+.two_text {
+	letter-spacing: 10px;
+}
+
+.guige_centen {
+	width: 95%;
+	margin: 10px 2.5%;
+	height: auto;
+	overflow: hidden;
+	text-indent: 15px;
+}
+.gomai{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	/*line-height: 50px;*/
+	background: #fff;
+}
+.gomai_left{
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+.gomai_left_img{
+	width: 40%;
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+.gomai_left_img img{
+	width: 40px;
+	height: 40px;
+	margin: 5px 0;
+	border-radius: 50px;
+}
+.gomai_left_lianxi{
+	width: 60%;
+	height: 100%;
+	float: left;
+}
+.lianxi_text{
+	height: 20px;
+	margin-top: 5px;
+	display: block;
+	width: 100%;
+}
+.lianxi_texts{
+	height: 20px;
+	display: block;
+	width: 100%;
+}
+.gomai_right{
+	width: 90%;
+	height: 40px;
+	float: left;
+	line-height: 40px;
+	text-align: center;
+	background: red;
+	font-size: 14px;
+	border-radius: 5px;
+	color: #fff;
+	margin: 5px 5%;
+}
+.zixun{
+	width: 50%;
+	height: 50px;
+	display: block;
+	float: left;
+}
+/*关于我们*/
+.about{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.about_title{
+	width: 100%;
+	height: 50px;
+	font-size: 18px;
+	text-align: center;
+	line-height: 50px;
+	letter-spacing: 5px;
+	font-weight: bold;
+}
+.about_img{
+	width: 100%;
+	height: 200px;
+}
+.about_img img{
+	width: 100%;
+	height: 100%;
+}
+.about_text{
+	width: 95%;
+	margin: 0 2.5%;
+	font-size: 14px;
+	text-indent: 20px;
+}
+.about_lian{
+	width: 95%;
+	margin: 10px 2.5%;
+	font-size: 14px;
+	height: auto;
+	overflow: hidden;
+}
+
+.about_lian ul{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.about_lian ul li{
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
